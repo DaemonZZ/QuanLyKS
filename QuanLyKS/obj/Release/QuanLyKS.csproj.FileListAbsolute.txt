@@ -1,0 +1,14 @@
+E:\Soft\C# workshop\QuanLyKS\QuanLyKS\bin\Release\QuanLyKS.exe.config
+E:\Soft\C# workshop\QuanLyKS\QuanLyKS\bin\Release\QuanLyKS.exe
+E:\Soft\C# workshop\QuanLyKS\QuanLyKS\bin\Release\QuanLyKS.pdb
+E:\Soft\C# workshop\QuanLyKS\QuanLyKS\bin\Release\EPPlus.dll
+E:\Soft\C# workshop\QuanLyKS\QuanLyKS\bin\Release\ExcelDataReader.dll
+E:\Soft\C# workshop\QuanLyKS\QuanLyKS\bin\Release\EPPlus.xml
+E:\Soft\C# workshop\QuanLyKS\QuanLyKS\bin\Release\ExcelDataReader.pdb
+E:\Soft\C# workshop\QuanLyKS\QuanLyKS\bin\Release\ExcelDataReader.xml
+E:\Soft\C# workshop\QuanLyKS\QuanLyKS\obj\Release\QuanLyKS.Form1.resources
+E:\Soft\C# workshop\QuanLyKS\QuanLyKS\obj\Release\QuanLyKS.MainForm.resources
+E:\Soft\C# workshop\QuanLyKS\QuanLyKS\obj\Release\QuanLyKS.Properties.Resources.resources
+E:\Soft\C# workshop\QuanLyKS\QuanLyKS\obj\Release\QuanLyKS.csproj.GenerateResource.Cache
+E:\Soft\C# workshop\QuanLyKS\QuanLyKS\obj\Release\QuanLyKS.exe
+E:\Soft\C# workshop\QuanLyKS\QuanLyKS\obj\Release\QuanLyKS.pdb
