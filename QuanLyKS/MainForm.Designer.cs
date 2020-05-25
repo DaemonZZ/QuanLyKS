@@ -80,11 +80,11 @@ namespace QuanLyKS
             this.btnEdit = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.tbCO = new System.Windows.Forms.TextBox();
+            this.tbCI = new System.Windows.Forms.TextBox();
+            this.tbPhong = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tbName = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Dv = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -101,6 +101,10 @@ namespace QuanLyKS
             this.button19 = new System.Windows.Forms.Button();
             this.button20 = new System.Windows.Forms.Button();
             this.button21 = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.tbTotal = new System.Windows.Forms.TextBox();
+            this.tfXtotal = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -485,16 +489,17 @@ namespace QuanLyKS
             this.panel2.Controls.Add(this.btnEdit);
             this.panel2.Controls.Add(this.label7);
             this.panel2.Controls.Add(this.label6);
-            this.panel2.Controls.Add(this.textBox4);
-            this.panel2.Controls.Add(this.textBox3);
-            this.panel2.Controls.Add(this.textBox2);
+            this.panel2.Controls.Add(this.tbCO);
+            this.panel2.Controls.Add(this.tbCI);
+            this.panel2.Controls.Add(this.tbPhong);
             this.panel2.Controls.Add(this.label5);
-            this.panel2.Controls.Add(this.textBox1);
+            this.panel2.Controls.Add(this.tbName);
             this.panel2.Controls.Add(this.label4);
             this.panel2.Location = new System.Drawing.Point(690, 38);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(371, 120);
             this.panel2.TabIndex = 5;
+            this.panel2.Click += new System.EventHandler(this.panel2_Click);
             // 
             // btnEdit
             // 
@@ -525,29 +530,29 @@ namespace QuanLyKS
             this.label6.TabIndex = 6;
             this.label6.Text = "Check in";
             // 
-            // textBox4
+            // tbCO
             // 
-            this.textBox4.Location = new System.Drawing.Point(89, 83);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(140, 20);
-            this.textBox4.TabIndex = 5;
+            this.tbCO.Location = new System.Drawing.Point(89, 83);
+            this.tbCO.Name = "tbCO";
+            this.tbCO.ReadOnly = true;
+            this.tbCO.Size = new System.Drawing.Size(140, 20);
+            this.tbCO.TabIndex = 5;
             // 
-            // textBox3
+            // tbCI
             // 
-            this.textBox3.Location = new System.Drawing.Point(89, 47);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(140, 20);
-            this.textBox3.TabIndex = 4;
+            this.tbCI.Location = new System.Drawing.Point(89, 47);
+            this.tbCI.Name = "tbCI";
+            this.tbCI.ReadOnly = true;
+            this.tbCI.Size = new System.Drawing.Size(140, 20);
+            this.tbCI.TabIndex = 4;
             // 
-            // textBox2
+            // tbPhong
             // 
-            this.textBox2.Location = new System.Drawing.Point(291, 12);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(63, 20);
-            this.textBox2.TabIndex = 3;
+            this.tbPhong.Location = new System.Drawing.Point(291, 12);
+            this.tbPhong.Name = "tbPhong";
+            this.tbPhong.ReadOnly = true;
+            this.tbPhong.Size = new System.Drawing.Size(63, 20);
+            this.tbPhong.TabIndex = 3;
             // 
             // label5
             // 
@@ -559,13 +564,13 @@ namespace QuanLyKS
             this.label5.TabIndex = 2;
             this.label5.Text = "Phòng";
             // 
-            // textBox1
+            // tbName
             // 
-            this.textBox1.Location = new System.Drawing.Point(89, 12);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(140, 20);
-            this.textBox1.TabIndex = 1;
+            this.tbName.Location = new System.Drawing.Point(89, 12);
+            this.tbName.Name = "tbName";
+            this.tbName.ReadOnly = true;
+            this.tbName.Size = new System.Drawing.Size(140, 20);
+            this.tbName.TabIndex = 1;
             // 
             // label4
             // 
@@ -623,6 +628,7 @@ namespace QuanLyKS
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(200, 61);
             this.panel3.TabIndex = 7;
+            this.panel3.Click += new System.EventHandler(this.panel3_Click);
             // 
             // radioButton1
             // 
@@ -710,9 +716,47 @@ namespace QuanLyKS
             this.button21.Text = "Báo Cáo";
             this.button21.UseVisualStyleBackColor = true;
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(823, 556);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(32, 13);
+            this.label11.TabIndex = 13;
+            this.label11.Text = "Tổng";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(826, 587);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(61, 13);
+            this.label12.TabIndex = 14;
+            this.label12.Text = "Tổng Đoàn";
+            // 
+            // tbTotal
+            // 
+            this.tbTotal.Location = new System.Drawing.Point(885, 549);
+            this.tbTotal.Name = "tbTotal";
+            this.tbTotal.ReadOnly = true;
+            this.tbTotal.Size = new System.Drawing.Size(134, 20);
+            this.tbTotal.TabIndex = 15;
+            // 
+            // tfXtotal
+            // 
+            this.tfXtotal.Location = new System.Drawing.Point(885, 584);
+            this.tfXtotal.Name = "tfXtotal";
+            this.tfXtotal.ReadOnly = true;
+            this.tfXtotal.Size = new System.Drawing.Size(134, 20);
+            this.tfXtotal.TabIndex = 16;
+            // 
             // MainForm
             // 
             this.ClientSize = new System.Drawing.Size(1086, 630);
+            this.Controls.Add(this.tfXtotal);
+            this.Controls.Add(this.tbTotal);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.label11);
             this.Controls.Add(this.button21);
             this.Controls.Add(this.button20);
             this.Controls.Add(this.button19);
@@ -730,6 +774,7 @@ namespace QuanLyKS
             this.Name = "MainForm";
             this.Text = "Quản Lý Khách Sạn";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.Click += new System.EventHandler(this.MainForm_Click);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -786,11 +831,11 @@ namespace QuanLyKS
         private Panel panel2;
         private Label label7;
         private Label label6;
-        private TextBox textBox4;
-        private TextBox textBox3;
-        private TextBox textBox2;
+        private TextBox tbCO;
+        private TextBox tbCI;
+        private TextBox tbPhong;
         private Label label5;
-        private TextBox textBox1;
+        private TextBox tbName;
         private Label label4;
         private DataGridView dataGridView1;
         private DataGridViewTextBoxColumn Dv;
@@ -808,6 +853,10 @@ namespace QuanLyKS
         private Button button19;
         private Button button20;
         private Button button21;
+        private Label label11;
+        private Label label12;
+        private TextBox tbTotal;
+        private TextBox tfXtotal;
 
     }
 }

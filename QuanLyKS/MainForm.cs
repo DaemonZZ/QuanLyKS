@@ -15,6 +15,19 @@ namespace QuanLyKS
     {
         List<Zoom> ListZoom = new DatabaseConnection().getListZoom();
         List<System.Windows.Forms.Button> B = new List<System.Windows.Forms.Button>();
+        private string selectedZoom="NULL";
+        //
+        //get set
+        //
+        public void setSelectedZoom(string selectedZoom)
+        {
+            this.selectedZoom = selectedZoom;
+        }
+        public string getSelectedZoom()
+        {
+            return selectedZoom;
+        }
+        //
         public MainForm()
         {
             InitializeComponent();
@@ -74,7 +87,7 @@ namespace QuanLyKS
                                 break;
                             case 2: itemB.BackColor = System.Drawing.Color.Green;
                                 break;
-                            case 3: itemB.BackColor = System.Drawing.Color.LightBlue;
+                            case 3: itemB.BackColor = System.Drawing.Color.Aqua;
                                 break;
                             case 4: itemB.BackColor = System.Drawing.Color.Gray;
                                 break;
@@ -93,6 +106,19 @@ namespace QuanLyKS
 
 
         }
+        //
+        //Clear Form
+        //
+        public void clear()
+        {
+            setSelectedZoom("NULL");
+            
+            tbName.Text = "";
+            tbPhong.Text = "";
+            tbCI.Text ="";
+            tbCO.Text ="";
+            //Xoá bảng
+        }
        
 
         private void btnLogout_Click(object sender, EventArgs e)
@@ -102,15 +128,48 @@ namespace QuanLyKS
             this.Dispose();
             
         }
-
+        //
+        //Sự Kien chung khi bấm nút chọn phòng
+        //
         private void Zoom_Click(object sender, EventArgs e)
         {
+            string t = sender.ToString();
+            selectedZoom = t.Substring(t.Length-4); 
+            //MessageBox.Show(selectedZoom);
 
+            var package = new ExcelPackage(new FileInfo("CurrentCustomer.xlsx"));
+            ExcelWorksheet a = package.Workbook.Worksheets[0];
+            for (int i = 1; i <= a.Dimension.End.Row; i++)
+            {
+                if (Convert.ToString(a.Cells[i + 1, 2].Value) == selectedZoom)
+                {
+                    tbName.Text = Convert.ToString(a.Cells[i + 1, 1].Value);
+                    tbPhong.Text = selectedZoom;
+                    tbCI.Text = Convert.ToString(a.Cells[i + 1, 3].Value);
+                    tbCO.Text = Convert.ToString(a.Cells[i + 1, 4].Value);
+                }
+            }
+            
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
            Application.Exit();
+        }
+
+        private void MainForm_Click(object sender, EventArgs e)
+        {
+            clear();
+        }
+
+        private void panel2_Click(object sender, EventArgs e)
+        {
+            clear();
+        }
+
+        private void panel3_Click(object sender, EventArgs e)
+        {
+            clear();
         }
     }
 }
