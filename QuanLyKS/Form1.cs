@@ -42,6 +42,7 @@ namespace QuanLyKS
         public Form1()
         {
             InitializeComponent();
+            //MessageBox.Show(ConnectionString.excelConnectionString);
         }
 
         DataTable loadComboBox()
