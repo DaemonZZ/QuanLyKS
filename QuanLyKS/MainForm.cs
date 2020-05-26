@@ -15,6 +15,7 @@ namespace QuanLyKS
     {
         List<Zoom> ListZoom = new DatabaseConnection().getListZoom();
         List<System.Windows.Forms.Button> B = new List<System.Windows.Forms.Button>();
+        List<ThongTinDichVu> listDV = new List<ThongTinDichVu>(); 
         private string selectedZoom="NULL";
         //
         //get set
@@ -118,6 +119,16 @@ namespace QuanLyKS
             tbCI.Text ="";
             tbCO.Text ="";
             //Xoá bảng
+           dataGridView1.DataSource=listDV;
+           dataGridView1.Columns[0].DataPropertyName = "dv";
+           dataGridView1.Columns[1].DataPropertyName = "dg";
+           dataGridView1.Columns[2].DataPropertyName = "sl";
+           dataGridView1.Columns[3].DataPropertyName = "sum";
+           dataGridView1.Columns[0].HeaderText = "Dịch Vụ";
+           dataGridView1.Columns[1].HeaderText = "Đơn Giá";
+           dataGridView1.Columns[2].HeaderText = "Số Lượng";
+           dataGridView1.Columns[3].HeaderText = "Tổng";
+           
         }
        
 
@@ -133,12 +144,20 @@ namespace QuanLyKS
         //
         private void Zoom_Click(object sender, EventArgs e)
         {
+            //
+            //Kiêm tra nút bấm
+            //
             string t = sender.ToString();
             selectedZoom = t.Substring(t.Length-4); 
             //MessageBox.Show(selectedZoom);
 
             var package = new ExcelPackage(new FileInfo("CurrentCustomer.xlsx"));
             ExcelWorksheet a = package.Workbook.Worksheets[0];
+
+
+            //
+            //Load thông tin từ Excel
+            //
             for (int i = 1; i <= a.Dimension.End.Row; i++)
             {
                 if (Convert.ToString(a.Cells[i + 1, 2].Value) == selectedZoom)
@@ -147,6 +166,31 @@ namespace QuanLyKS
                     tbPhong.Text = selectedZoom;
                     tbCI.Text = Convert.ToString(a.Cells[i + 1, 3].Value);
                     tbCO.Text = Convert.ToString(a.Cells[i + 1, 4].Value);
+                    //MessageBox.Show(Convert.ToString(a.Cells[i + 4, 3].Value));
+
+                    if (Convert.ToString(a.Cells[i + 3, 3].Value) == "")
+                        {
+                            listDV.Add(new ThongTinDichVu(Convert.ToString(a.Cells[i + 3, 1].Value), Convert.ToInt32(a.Cells[i + 3, 2].Value), 0));
+                        }
+                    else listDV.Add(new ThongTinDichVu(Convert.ToString(a.Cells[i + 3, 1].Value), Convert.ToInt32(a.Cells[i + 3, 2].Value), Convert.ToInt32(a.Cells[i+3,3].Value)));
+                    for (int j = 1; j < 9; j++)
+                    {
+                        if (Convert.ToString(a.Cells[i + 3 + j, 1].Value) == "") break;
+                        else
+                        {
+                            listDV.Add(new ThongTinDichVu(Convert.ToString(a.Cells[i + 3 + j, 1].Value), Convert.ToInt32(a.Cells[i + 3 + j, 2].Value), Convert.ToInt32(a.Cells[i + 3 + j, 3].Value)));
+                            //MessageBox.Show(Convert.ToString(a.Cells[i + 3 + j, 3].Value));
+                        }
+                    }
+                    dataGridView1.DataSource = listDV;
+                    dataGridView1.Columns[0].DataPropertyName = "dv";
+                    dataGridView1.Columns[1].DataPropertyName = "dg";
+                    dataGridView1.Columns[2].DataPropertyName = "sl";
+                    dataGridView1.Columns[3].DataPropertyName = "sum";
+                    dataGridView1.Columns[0].HeaderText = "Dịch Vụ";
+                    dataGridView1.Columns[1].HeaderText = "Đơn Giá";
+                    dataGridView1.Columns[2].HeaderText = "Số Lượng";
+                    dataGridView1.Columns[3].HeaderText = "Tổng";
                 }
             }
             

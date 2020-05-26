@@ -87,10 +87,6 @@ namespace QuanLyKS
             this.tbName = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Dv = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dg = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sl = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel3 = new System.Windows.Forms.Panel();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.label10 = new System.Windows.Forms.Label();
@@ -587,35 +583,11 @@ namespace QuanLyKS
             this.dataGridView1.AllowUserToOrderColumns = true;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Dv,
-            this.dg,
-            this.sl,
-            this.tt});
             this.dataGridView1.Location = new System.Drawing.Point(690, 178);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(371, 305);
             this.dataGridView1.TabIndex = 6;
-            // 
-            // Dv
-            // 
-            this.Dv.HeaderText = "Dịch Vụ";
-            this.Dv.Name = "Dv";
-            // 
-            // dg
-            // 
-            this.dg.HeaderText = "Đơn Giá";
-            this.dg.Name = "dg";
-            // 
-            // sl
-            // 
-            this.sl.HeaderText = "Số Lượng";
-            this.sl.Name = "sl";
-            // 
-            // tt
-            // 
-            this.tt.HeaderText = "Thành Tiền";
-            this.tt.Name = "tt";
+           
             // 
             // panel3
             // 
@@ -838,10 +810,6 @@ namespace QuanLyKS
         private TextBox tbName;
         private Label label4;
         private DataGridView dataGridView1;
-        private DataGridViewTextBoxColumn Dv;
-        private DataGridViewTextBoxColumn dg;
-        private DataGridViewTextBoxColumn sl;
-        private DataGridViewTextBoxColumn tt;
         private Button btnEdit;
         private Panel panel3;
         private RadioButton radioButton1;
