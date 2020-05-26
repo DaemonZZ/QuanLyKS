@@ -15,8 +15,8 @@ namespace QuanLyKS
     {
         List<Zoom> ListZoom = new DatabaseConnection().getListZoom();
         List<System.Windows.Forms.Button> B = new List<System.Windows.Forms.Button>();
-        List<ThongTinDichVu> listDV = new List<ThongTinDichVu>(); 
-        private string selectedZoom="NULL";
+        
+        private string selectedZoom = "NULL";
         //
         //get set
         //
@@ -39,7 +39,7 @@ namespace QuanLyKS
         // 
         public void Update()
         {
-            
+
             B.Add(button101);
             B.Add(button102);
             B.Add(button103);
@@ -55,14 +55,11 @@ namespace QuanLyKS
             B.Add(button205);
             B.Add(button206);
             B.Add(button207);
-            //ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             var package = new ExcelPackage(new FileInfo("CurrentCustomer.xlsx"));
             ExcelWorksheet a = package.Workbook.Worksheets[0];
-            //string s = a.Cells[3, 2].Value.ToString(); int n = Int16.Parse(s);
-           // textBox1.Text = (a.Dimension.Start.Row).ToString();
-            for (int i=1; i <= a.Dimension.End.Row; i++)
+            for (int i = 1; i <= a.Dimension.End.Row; i++)
             {
-                if (Convert.ToString(a.Cells[i,1].Value) == "NewKH")
+                if (Convert.ToString(a.Cells[i, 1].Value) == "NewKH")
                 {
                     foreach (var item in ListZoom)
                     {
@@ -70,15 +67,23 @@ namespace QuanLyKS
                         {
                             int n = Convert.ToInt16(a.Cells[i + 2, 2].Value);
                             item.setStatus(n);
-                            //MessageBox.Show("Set Status ok");
                         }
                     }
-                    
+
                 }
             }
+
+            /*Trạng thái Phòng
+             * 1. Phòng Sạch
+             * 2. Phòng Có khách đặt trước trong ngày - không bán
+             * 3. Phòng vừa trả chưa sử dụng đc
+             * 4. Phòng trong thời gian bảo trì - không bán
+             * 5. Phòng đang có khách ở
+             * 6-7-8. Gộp nhiều phòng cùng màu biểu thị khách đi theo đoàn thuê nhiều phòng
+             */
             foreach (var itemB in B)
             {
-                foreach (var itemZ  in ListZoom)
+                foreach (var itemZ in ListZoom)
                 {
                     if (itemB.Text == itemZ.getPhong())
                     {
@@ -112,43 +117,42 @@ namespace QuanLyKS
         //
         public void clear()
         {
-            setSelectedZoom("NULL");
             
+            setSelectedZoom("NULL");
+
             tbName.Text = "";
             tbPhong.Text = "";
-            tbCI.Text ="";
-            tbCO.Text ="";
+            tbCI.Text = "";
+            tbCO.Text = "";
             //Xoá bảng
-           dataGridView1.DataSource=listDV;
-           dataGridView1.Columns[0].DataPropertyName = "dv";
-           dataGridView1.Columns[1].DataPropertyName = "dg";
-           dataGridView1.Columns[2].DataPropertyName = "sl";
-           dataGridView1.Columns[3].DataPropertyName = "sum";
-           dataGridView1.Columns[0].HeaderText = "Dịch Vụ";
-           dataGridView1.Columns[1].HeaderText = "Đơn Giá";
-           dataGridView1.Columns[2].HeaderText = "Số Lượng";
-           dataGridView1.Columns[3].HeaderText = "Tổng";
-           
+            dataGridView1.DataSource = new List<ThongTinDichVu>();
+            
+            dataGridView1.Columns[0].HeaderText = "Dịch Vụ";
+            dataGridView1.Columns[1].HeaderText = "Đơn Giá";
+            dataGridView1.Columns[2].HeaderText = "Số Lượng";
+            dataGridView1.Columns[3].HeaderText = "Tổng";
+
         }
-       
+
 
         private void btnLogout_Click(object sender, EventArgs e)
         {
             Form1 f1 = new Form1();
             f1.Show();
             this.Dispose();
-            
+
         }
         //
         //Sự Kien chung khi bấm nút chọn phòng
         //
         private void Zoom_Click(object sender, EventArgs e)
         {
+            List<ThongTinDichVu> listDV = new List<ThongTinDichVu>();
             //
             //Kiêm tra nút bấm
             //
             string t = sender.ToString();
-            selectedZoom = t.Substring(t.Length-4); 
+            selectedZoom = t.Substring(t.Length - 4);
             //MessageBox.Show(selectedZoom);
 
             var package = new ExcelPackage(new FileInfo("CurrentCustomer.xlsx"));
@@ -168,11 +172,17 @@ namespace QuanLyKS
                     tbCO.Text = Convert.ToString(a.Cells[i + 1, 4].Value);
                     //MessageBox.Show(Convert.ToString(a.Cells[i + 4, 3].Value));
 
+                    /*
+                     * Dòng đầu dịch vụ phòng luôn có. khách chưa trả thì in ra 2 ô sl và dv trông
+                     * từ dòng thứ 2 là các dịch vụ đi kem có thể có hoặc không
+                     * dùng Int32 cho giá phòng vì Int16 out of range
+                     */
+
                     if (Convert.ToString(a.Cells[i + 3, 3].Value) == "")
-                        {
-                            listDV.Add(new ThongTinDichVu(Convert.ToString(a.Cells[i + 3, 1].Value), Convert.ToInt32(a.Cells[i + 3, 2].Value), 0));
-                        }
-                    else listDV.Add(new ThongTinDichVu(Convert.ToString(a.Cells[i + 3, 1].Value), Convert.ToInt32(a.Cells[i + 3, 2].Value), Convert.ToInt32(a.Cells[i+3,3].Value)));
+                    {
+                        listDV.Add(new ThongTinDichVu(Convert.ToString(a.Cells[i + 3, 1].Value), Convert.ToInt32(a.Cells[i + 3, 2].Value), 0));
+                    }
+                    else listDV.Add(new ThongTinDichVu(Convert.ToString(a.Cells[i + 3, 1].Value), Convert.ToInt32(a.Cells[i + 3, 2].Value), Convert.ToInt32(a.Cells[i + 3, 3].Value)));
                     for (int j = 1; j < 9; j++)
                     {
                         if (Convert.ToString(a.Cells[i + 3 + j, 1].Value) == "") break;
@@ -182,24 +192,34 @@ namespace QuanLyKS
                             //MessageBox.Show(Convert.ToString(a.Cells[i + 3 + j, 3].Value));
                         }
                     }
+                    
                     dataGridView1.DataSource = listDV;
+                    dataGridView1.AutoGenerateColumns = false;
+                    // Thiết lập vị trí cột
                     dataGridView1.Columns[0].DataPropertyName = "dv";
                     dataGridView1.Columns[1].DataPropertyName = "dg";
                     dataGridView1.Columns[2].DataPropertyName = "sl";
                     dataGridView1.Columns[3].DataPropertyName = "sum";
+                    //thiết lập tên hiển thị cộtk
                     dataGridView1.Columns[0].HeaderText = "Dịch Vụ";
                     dataGridView1.Columns[1].HeaderText = "Đơn Giá";
                     dataGridView1.Columns[2].HeaderText = "Số Lượng";
                     dataGridView1.Columns[3].HeaderText = "Tổng";
+                    // Tổng Phòng
+                    int tong = Convert.ToInt32(a.Cells[i + 2, 4].Value);
+                    tbTotal.Text = String.Format("{0:n0}", tong);
                 }
             }
-            
+
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-           Application.Exit();
+            Application.Exit();
         }
+        #region
+
+        // xoá tất cả thông tin hiển thị khi bấm ra ngoài vùng Phòng
 
         private void MainForm_Click(object sender, EventArgs e)
         {
@@ -215,5 +235,8 @@ namespace QuanLyKS
         {
             clear();
         }
+        #endregion
+       
+        
     }
 }

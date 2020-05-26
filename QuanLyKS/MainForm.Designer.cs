@@ -92,7 +92,6 @@ namespace QuanLyKS
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.button17 = new System.Windows.Forms.Button();
             this.button18 = new System.Windows.Forms.Button();
             this.button19 = new System.Windows.Forms.Button();
             this.button20 = new System.Windows.Forms.Button();
@@ -585,9 +584,9 @@ namespace QuanLyKS
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(690, 178);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(371, 305);
             this.dataGridView1.TabIndex = 6;
-           
             // 
             // panel3
             // 
@@ -642,15 +641,6 @@ namespace QuanLyKS
             this.label8.Size = new System.Drawing.Size(30, 13);
             this.label8.TabIndex = 0;
             this.label8.Text = "Time";
-            // 
-            // button17
-            // 
-            this.button17.Location = new System.Drawing.Point(986, 504);
-            this.button17.Name = "button17";
-            this.button17.Size = new System.Drawing.Size(75, 23);
-            this.button17.TabIndex = 8;
-            this.button17.Text = "Tổng Phòng";
-            this.button17.UseVisualStyleBackColor = true;
             // 
             // button18
             // 
@@ -733,7 +723,6 @@ namespace QuanLyKS
             this.Controls.Add(this.button20);
             this.Controls.Add(this.button19);
             this.Controls.Add(this.button18);
-            this.Controls.Add(this.button17);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.panel2);
@@ -816,7 +805,6 @@ namespace QuanLyKS
         private Label label10;
         private Label label9;
         private Label label8;
-        private Button button17;
         private Button button18;
         private Button button19;
         private Button button20;
