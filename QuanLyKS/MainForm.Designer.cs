@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace QuanLyKS
 {
@@ -39,6 +40,7 @@ namespace QuanLyKS
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.đăngXuấtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -100,6 +102,8 @@ namespace QuanLyKS
             this.label12 = new System.Windows.Forms.Label();
             this.tbTotal = new System.Windows.Forms.TextBox();
             this.tfXtotal = new System.Windows.Forms.TextBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -606,13 +610,13 @@ namespace QuanLyKS
             this.radioButton1.AutoSize = true;
             this.radioButton1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.radioButton1.Checked = true;
-            this.radioButton1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.radioButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButton1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.radioButton1.Location = new System.Drawing.Point(81, 36);
             this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(85, 17);
+            this.radioButton1.Size = new System.Drawing.Size(14, 13);
             this.radioButton1.TabIndex = 4;
             this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "radioButton1";
             this.radioButton1.UseVisualStyleBackColor = false;
             // 
             // label10
@@ -620,9 +624,8 @@ namespace QuanLyKS
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(78, 7);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(41, 13);
+            this.label10.Size = new System.Drawing.Size(0, 13);
             this.label10.TabIndex = 2;
-            this.label10.Text = "label10";
             // 
             // label9
             // 
@@ -648,8 +651,9 @@ namespace QuanLyKS
             this.button18.Name = "button18";
             this.button18.Size = new System.Drawing.Size(75, 23);
             this.button18.TabIndex = 9;
-            this.button18.Text = "Tổng Đoàn";
+            this.button18.Text = "Thêm DV";
             this.button18.UseVisualStyleBackColor = true;
+            this.button18.Click += new System.EventHandler(this.button18_Click);
             // 
             // button19
             // 
@@ -681,7 +685,7 @@ namespace QuanLyKS
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(823, 556);
+            this.label11.Location = new System.Drawing.Point(837, 572);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(32, 13);
             this.label11.TabIndex = 13;
@@ -690,7 +694,7 @@ namespace QuanLyKS
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(826, 587);
+            this.label12.Location = new System.Drawing.Point(837, 601);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(61, 13);
             this.label12.TabIndex = 14;
@@ -698,7 +702,7 @@ namespace QuanLyKS
             // 
             // tbTotal
             // 
-            this.tbTotal.Location = new System.Drawing.Point(885, 549);
+            this.tbTotal.Location = new System.Drawing.Point(927, 572);
             this.tbTotal.Name = "tbTotal";
             this.tbTotal.ReadOnly = true;
             this.tbTotal.Size = new System.Drawing.Size(134, 20);
@@ -706,15 +710,32 @@ namespace QuanLyKS
             // 
             // tfXtotal
             // 
-            this.tfXtotal.Location = new System.Drawing.Point(885, 584);
+            this.tfXtotal.Location = new System.Drawing.Point(927, 598);
             this.tfXtotal.Name = "tfXtotal";
             this.tfXtotal.ReadOnly = true;
             this.tfXtotal.Size = new System.Drawing.Size(134, 20);
             this.tfXtotal.TabIndex = 16;
             // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(981, 504);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 17;
+            this.button1.Text = "Sửa DV";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // MainForm
             // 
             this.ClientSize = new System.Drawing.Size(1086, 630);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.tfXtotal);
             this.Controls.Add(this.tbTotal);
             this.Controls.Add(this.label12);
@@ -799,9 +820,9 @@ namespace QuanLyKS
         private TextBox tbName;
         private Label label4;
         private DataGridView dataGridView1;
+        
         private Button btnEdit;
         private Panel panel3;
-        private RadioButton radioButton1;
         private Label label10;
         private Label label9;
         private Label label8;
@@ -813,6 +834,9 @@ namespace QuanLyKS
         private Label label12;
         private TextBox tbTotal;
         private TextBox tfXtotal;
+        private System.Windows.Forms.Timer timer1;
+        private RadioButton radioButton1;
+        private Button button1;
 
     }
 }

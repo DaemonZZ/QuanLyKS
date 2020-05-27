@@ -11,3 +11,5 @@ E:\Soft\C# workshop\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.csproj.ResolveComRefere
 E:\Soft\C# workshop\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.MainForm.resources
 E:\Soft\C# workshop\QuanLyKS\QuanLyKS\bin\Debug\EPPlus.dll
 E:\Soft\C# workshop\QuanLyKS\QuanLyKS\bin\Debug\EPPlus.xml
+E:\Soft\C# workshop\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.AddDialog.resources
+E:\Soft\C# workshop\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.EditDialog.resources

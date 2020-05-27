@@ -15,6 +15,7 @@ namespace QuanLyKS
     {
         private string query = @"select * from NhanVien ";
         private string password;
+        public static string username;
 
         //
         // Phương thức get set
@@ -43,6 +44,7 @@ namespace QuanLyKS
         {
             InitializeComponent();
             //MessageBox.Show(ConnectionString.excelConnectionString);
+            
         }
 
         DataTable loadComboBox()
@@ -94,12 +96,14 @@ namespace QuanLyKS
         private void btnLogin_Click(object sender, EventArgs e)
         {
             loadPassword();
+            username = comboBox2.Text;
             if (tbPass.Text == password)
             {
                 MainForm mf = new MainForm();
                 mf.Show();
                 this.Hide();
             }
+           
         }
                
         private void tbPass_KeyDown(object sender, KeyEventArgs e)

@@ -28,6 +28,7 @@ namespace QuanLyKS
         {
             return selectedZoom;
         }
+        
         //
         public MainForm()
         {
@@ -39,7 +40,7 @@ namespace QuanLyKS
         // 
         public void Update()
         {
-
+            radioButton1.Text = Form1.username;
             B.Add(button101);
             B.Add(button102);
             B.Add(button103);
@@ -147,12 +148,17 @@ namespace QuanLyKS
         //
         private void Zoom_Click(object sender, EventArgs e)
         {
-            List<ThongTinDichVu> listDV = new List<ThongTinDichVu>();
             //
             //Kiêm tra nút bấm
             //
             string t = sender.ToString();
             selectedZoom = t.Substring(t.Length - 4);
+            getThongTinPhong();
+        }
+        public void getThongTinPhong()
+        {
+            List<ThongTinDichVu> listDV = new List<ThongTinDichVu>();
+            
             //MessageBox.Show(selectedZoom);
 
             var package = new ExcelPackage(new FileInfo("CurrentCustomer.xlsx"));
@@ -172,6 +178,10 @@ namespace QuanLyKS
                     tbCO.Text = Convert.ToString(a.Cells[i + 1, 4].Value);
                     //MessageBox.Show(Convert.ToString(a.Cells[i + 4, 3].Value));
 
+
+                    //
+                    //Load List DV
+                    //
                     /*
                      * Dòng đầu dịch vụ phòng luôn có. khách chưa trả thì in ra 2 ô sl và dv trông
                      * từ dòng thứ 2 là các dịch vụ đi kem có thể có hoặc không
@@ -192,7 +202,7 @@ namespace QuanLyKS
                             //MessageBox.Show(Convert.ToString(a.Cells[i + 3 + j, 3].Value));
                         }
                     }
-                    
+
                     dataGridView1.DataSource = listDV;
                     dataGridView1.AutoGenerateColumns = false;
                     // Thiết lập vị trí cột
@@ -236,7 +246,29 @@ namespace QuanLyKS
             clear();
         }
         #endregion
-       
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            label10.Text = DateTime.Now.ToLongTimeString();
+        }
+
+        private void button18_Click(object sender, EventArgs e)
+        {
+            if (selectedZoom != "NULL")
+            {
+                AddDialog a = new AddDialog(selectedZoom);
+                a.ShowDialog();
+                getThongTinPhong();
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            EditDialog ed = new EditDialog(selectedZoom);
+            ed.ShowDialog();
+        }
+
+        
         
     }
 }
