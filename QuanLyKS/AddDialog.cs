@@ -15,7 +15,7 @@ namespace QuanLyKS
     public partial class AddDialog : Form
     {
         private string curentZoom;
-        public AddDialog( string s)
+        public AddDialog(string s)
         {
             this.curentZoom = s;
             InitializeComponent();
@@ -67,7 +67,7 @@ namespace QuanLyKS
                 listDV.Add(new ThongTinDichVu(tbDichVu.Text, Convert.ToInt32(tbDonGia.Text), Convert.ToInt32(tbSoLuong.Text)));
                 //Fill List  bang cac dich vu rong
                 int count = listDV.Count;
-                for (int i = count ; i < 10; i++)
+                for (int i = count; i < 10; i++)
                 {
                     listDV.Add(new ThongTinDichVu());
                 }
