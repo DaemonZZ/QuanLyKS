@@ -20,7 +20,9 @@ namespace QuanLyKS
             this.curentZoom = s;
             InitializeComponent();
         }
-
+        //
+        //Set tb chỉ nhập số
+        //
         private void tb_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))

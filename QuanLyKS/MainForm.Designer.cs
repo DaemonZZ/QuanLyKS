@@ -41,6 +41,7 @@ namespace QuanLyKS
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.đăngXuấtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,6 +64,17 @@ namespace QuanLyKS
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.button206 = new System.Windows.Forms.Button();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.trạngTháiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.phòngSạchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.phòngBảoTrìToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.phòngĐangSửDụngToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.đoàn1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.đoàn2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.đoàn3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ghiChúToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button205 = new System.Windows.Forms.Button();
             this.button204 = new System.Windows.Forms.Button();
             this.button107 = new System.Windows.Forms.Button();
@@ -104,8 +116,11 @@ namespace QuanLyKS
             this.tfXtotal = new System.Windows.Forms.TextBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.button1 = new System.Windows.Forms.Button();
+            this.btnExit = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel3.SuspendLayout();
@@ -150,6 +165,7 @@ namespace QuanLyKS
             this.đóngToolStripMenuItem.Name = "đóngToolStripMenuItem";
             this.đóngToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.đóngToolStripMenuItem.Text = "Đóng";
+            this.đóngToolStripMenuItem.Click += new System.EventHandler(this.đóngToolStripMenuItem_Click);
             // 
             // viewToolStripMenuItem
             // 
@@ -232,7 +248,7 @@ namespace QuanLyKS
             // 
             this.btnLogout.Location = new System.Drawing.Point(12, 38);
             this.btnLogout.Name = "btnLogout";
-            this.btnLogout.Size = new System.Drawing.Size(85, 61);
+            this.btnLogout.Size = new System.Drawing.Size(80, 60);
             this.btnLogout.TabIndex = 1;
             this.btnLogout.Text = "Đăng Xuất";
             this.btnLogout.UseVisualStyleBackColor = true;
@@ -240,9 +256,9 @@ namespace QuanLyKS
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(133, 38);
+            this.button2.Location = new System.Drawing.Point(114, 38);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(91, 61);
+            this.button2.Size = new System.Drawing.Size(80, 60);
             this.button2.TabIndex = 2;
             this.button2.Text = "Danh Bạ";
             this.button2.UseVisualStyleBackColor = true;
@@ -296,6 +312,7 @@ namespace QuanLyKS
             // button206
             // 
             this.button206.BackColor = System.Drawing.Color.Yellow;
+            this.button206.ContextMenuStrip = this.contextMenuStrip1;
             this.button206.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button206.Location = new System.Drawing.Point(473, 202);
             this.button206.Name = "button206";
@@ -304,10 +321,107 @@ namespace QuanLyKS
             this.button206.Text = "P206";
             this.button206.UseVisualStyleBackColor = false;
             this.button206.Click += new System.EventHandler(this.Zoom_Click);
+            this.button206.MouseHover += new System.EventHandler(this.button206_MouseHover);
+            this.button206.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Zoom_MouseUp);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.trạngTháiToolStripMenuItem,
+            this.ghiChúToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(127, 48);
+            // 
+            // trạngTháiToolStripMenuItem
+            // 
+            this.trạngTháiToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.phòngSạchToolStripMenuItem,
+            this.pToolStripMenuItem,
+            this.toolStripMenuItem2,
+            this.phòngBảoTrìToolStripMenuItem,
+            this.phòngĐangSửDụngToolStripMenuItem,
+            this.đoàn1ToolStripMenuItem,
+            this.đoàn2ToolStripMenuItem,
+            this.đoàn3ToolStripMenuItem});
+            this.trạngTháiToolStripMenuItem.Name = "trạngTháiToolStripMenuItem";
+            this.trạngTháiToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.trạngTháiToolStripMenuItem.Text = "Trạng thái";
+            // 
+            // phòngSạchToolStripMenuItem
+            // 
+            this.phòngSạchToolStripMenuItem.ForeColor = System.Drawing.Color.Yellow;
+            this.phòngSạchToolStripMenuItem.Name = "phòngSạchToolStripMenuItem";
+            this.phòngSạchToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.phòngSạchToolStripMenuItem.Text = "1. Phòng Sạch";
+            this.phòngSạchToolStripMenuItem.Click += new System.EventHandler(this.ChooseStatus);
+            // 
+            // pToolStripMenuItem
+            // 
+            this.pToolStripMenuItem.ForeColor = System.Drawing.Color.Lime;
+            this.pToolStripMenuItem.Name = "pToolStripMenuItem";
+            this.pToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.pToolStripMenuItem.Text = "2.Phòng Đặt";
+            this.pToolStripMenuItem.Click += new System.EventHandler(this.ChooseStatus);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.ForeColor = System.Drawing.Color.Aqua;
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(194, 22);
+            this.toolStripMenuItem2.Text = "3.Phòng dơ";
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.ChooseStatus);
+            // 
+            // phòngBảoTrìToolStripMenuItem
+            // 
+            this.phòngBảoTrìToolStripMenuItem.ForeColor = System.Drawing.Color.Gray;
+            this.phòngBảoTrìToolStripMenuItem.Name = "phòngBảoTrìToolStripMenuItem";
+            this.phòngBảoTrìToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.phòngBảoTrìToolStripMenuItem.Text = "4,Phòng bảo trì";
+            this.phòngBảoTrìToolStripMenuItem.Click += new System.EventHandler(this.ChooseStatus);
+            // 
+            // phòngĐangSửDụngToolStripMenuItem
+            // 
+            this.phòngĐangSửDụngToolStripMenuItem.ForeColor = System.Drawing.Color.DeepPink;
+            this.phòngĐangSửDụngToolStripMenuItem.Name = "phòngĐangSửDụngToolStripMenuItem";
+            this.phòngĐangSửDụngToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.phòngĐangSửDụngToolStripMenuItem.Text = "5.Phòng đang sử dụng";
+            this.phòngĐangSửDụngToolStripMenuItem.Click += new System.EventHandler(this.ChooseStatus);
+            // 
+            // đoàn1ToolStripMenuItem
+            // 
+            this.đoàn1ToolStripMenuItem.ForeColor = System.Drawing.Color.Red;
+            this.đoàn1ToolStripMenuItem.Name = "đoàn1ToolStripMenuItem";
+            this.đoàn1ToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.đoàn1ToolStripMenuItem.Text = "6.Đoàn 1";
+            this.đoàn1ToolStripMenuItem.Click += new System.EventHandler(this.ChooseStatus);
+            // 
+            // đoàn2ToolStripMenuItem
+            // 
+            this.đoàn2ToolStripMenuItem.ForeColor = System.Drawing.Color.Purple;
+            this.đoàn2ToolStripMenuItem.Name = "đoàn2ToolStripMenuItem";
+            this.đoàn2ToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.đoàn2ToolStripMenuItem.Text = "7.Đoàn 2";
+            this.đoàn2ToolStripMenuItem.Click += new System.EventHandler(this.ChooseStatus);
+            // 
+            // đoàn3ToolStripMenuItem
+            // 
+            this.đoàn3ToolStripMenuItem.ForeColor = System.Drawing.Color.Orange;
+            this.đoàn3ToolStripMenuItem.Name = "đoàn3ToolStripMenuItem";
+            this.đoàn3ToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.đoàn3ToolStripMenuItem.Text = "8.Đoàn 3";
+            this.đoàn3ToolStripMenuItem.Click += new System.EventHandler(this.ChooseStatus);
+            // 
+            // ghiChúToolStripMenuItem
+            // 
+            this.ghiChúToolStripMenuItem.Name = "ghiChúToolStripMenuItem";
+            this.ghiChúToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.ghiChúToolStripMenuItem.Text = "Ghi Chú";
+            this.ghiChúToolStripMenuItem.Click += new System.EventHandler(this.ghiChúToolStripMenuItem_Click);
             // 
             // button205
             // 
             this.button205.BackColor = System.Drawing.Color.Yellow;
+            this.button205.ContextMenuStrip = this.contextMenuStrip1;
             this.button205.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button205.Location = new System.Drawing.Point(473, 146);
             this.button205.Name = "button205";
@@ -316,10 +430,13 @@ namespace QuanLyKS
             this.button205.Text = "P205";
             this.button205.UseVisualStyleBackColor = false;
             this.button205.Click += new System.EventHandler(this.Zoom_Click);
+            this.button205.MouseHover += new System.EventHandler(this.button206_MouseHover);
+            this.button205.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Zoom_MouseUp);
             // 
             // button204
             // 
             this.button204.BackColor = System.Drawing.Color.Yellow;
+            this.button204.ContextMenuStrip = this.contextMenuStrip1;
             this.button204.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button204.Location = new System.Drawing.Point(473, 90);
             this.button204.Name = "button204";
@@ -328,10 +445,13 @@ namespace QuanLyKS
             this.button204.Text = "P204";
             this.button204.UseVisualStyleBackColor = false;
             this.button204.Click += new System.EventHandler(this.Zoom_Click);
+            this.button204.MouseHover += new System.EventHandler(this.button206_MouseHover);
+            this.button204.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Zoom_MouseUp);
             // 
             // button107
             // 
             this.button107.BackColor = System.Drawing.Color.Yellow;
+            this.button107.ContextMenuStrip = this.contextMenuStrip1;
             this.button107.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button107.Location = new System.Drawing.Point(180, 296);
             this.button107.Name = "button107";
@@ -340,10 +460,13 @@ namespace QuanLyKS
             this.button107.Text = "P107";
             this.button107.UseVisualStyleBackColor = false;
             this.button107.Click += new System.EventHandler(this.Zoom_Click);
+            this.button107.MouseHover += new System.EventHandler(this.button206_MouseHover);
+            this.button107.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Zoom_MouseUp);
             // 
             // button108
             // 
             this.button108.BackColor = System.Drawing.Color.Yellow;
+            this.button108.ContextMenuStrip = this.contextMenuStrip1;
             this.button108.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button108.Location = new System.Drawing.Point(180, 352);
             this.button108.Name = "button108";
@@ -352,10 +475,13 @@ namespace QuanLyKS
             this.button108.Text = "P108";
             this.button108.UseVisualStyleBackColor = false;
             this.button108.Click += new System.EventHandler(this.Zoom_Click);
+            this.button108.MouseHover += new System.EventHandler(this.button206_MouseHover);
+            this.button108.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Zoom_MouseUp);
             // 
             // button106
             // 
             this.button106.BackColor = System.Drawing.Color.Yellow;
+            this.button106.ContextMenuStrip = this.contextMenuStrip1;
             this.button106.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button106.Location = new System.Drawing.Point(180, 202);
             this.button106.Name = "button106";
@@ -364,10 +490,13 @@ namespace QuanLyKS
             this.button106.Text = "P106";
             this.button106.UseVisualStyleBackColor = false;
             this.button106.Click += new System.EventHandler(this.Zoom_Click);
+            this.button106.MouseHover += new System.EventHandler(this.button206_MouseHover);
+            this.button106.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Zoom_MouseUp);
             // 
             // button105
             // 
             this.button105.BackColor = System.Drawing.Color.Yellow;
+            this.button105.ContextMenuStrip = this.contextMenuStrip1;
             this.button105.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button105.Location = new System.Drawing.Point(180, 146);
             this.button105.Name = "button105";
@@ -376,10 +505,13 @@ namespace QuanLyKS
             this.button105.Text = "P105";
             this.button105.UseVisualStyleBackColor = false;
             this.button105.Click += new System.EventHandler(this.Zoom_Click);
+            this.button105.MouseHover += new System.EventHandler(this.button206_MouseHover);
+            this.button105.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Zoom_MouseUp);
             // 
             // button104
             // 
             this.button104.BackColor = System.Drawing.Color.Yellow;
+            this.button104.ContextMenuStrip = this.contextMenuStrip1;
             this.button104.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button104.Location = new System.Drawing.Point(180, 90);
             this.button104.Name = "button104";
@@ -388,10 +520,13 @@ namespace QuanLyKS
             this.button104.Text = "P104";
             this.button104.UseVisualStyleBackColor = false;
             this.button104.Click += new System.EventHandler(this.Zoom_Click);
+            this.button104.MouseHover += new System.EventHandler(this.button206_MouseHover);
+            this.button104.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Zoom_MouseUp);
             // 
             // button207
             // 
             this.button207.BackColor = System.Drawing.Color.Yellow;
+            this.button207.ContextMenuStrip = this.contextMenuStrip1;
             this.button207.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button207.Location = new System.Drawing.Point(473, 302);
             this.button207.Name = "button207";
@@ -400,10 +535,13 @@ namespace QuanLyKS
             this.button207.Text = "P207";
             this.button207.UseVisualStyleBackColor = false;
             this.button207.Click += new System.EventHandler(this.Zoom_Click);
+            this.button207.MouseHover += new System.EventHandler(this.button206_MouseHover);
+            this.button207.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Zoom_MouseUp);
             // 
             // button201
             // 
             this.button201.BackColor = System.Drawing.Color.Yellow;
+            this.button201.ContextMenuStrip = this.contextMenuStrip1;
             this.button201.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button201.Location = new System.Drawing.Point(317, 302);
             this.button201.Name = "button201";
@@ -412,10 +550,13 @@ namespace QuanLyKS
             this.button201.Text = "P201";
             this.button201.UseVisualStyleBackColor = false;
             this.button201.Click += new System.EventHandler(this.Zoom_Click);
+            this.button201.MouseHover += new System.EventHandler(this.button206_MouseHover);
+            this.button201.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Zoom_MouseUp);
             // 
             // button202
             // 
             this.button202.BackColor = System.Drawing.Color.Yellow;
+            this.button202.ContextMenuStrip = this.contextMenuStrip1;
             this.button202.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button202.Location = new System.Drawing.Point(317, 196);
             this.button202.Name = "button202";
@@ -424,10 +565,13 @@ namespace QuanLyKS
             this.button202.Text = "P202";
             this.button202.UseVisualStyleBackColor = false;
             this.button202.Click += new System.EventHandler(this.Zoom_Click);
+            this.button202.MouseHover += new System.EventHandler(this.button206_MouseHover);
+            this.button202.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Zoom_MouseUp);
             // 
             // button203
             // 
             this.button203.BackColor = System.Drawing.Color.Yellow;
+            this.button203.ContextMenuStrip = this.contextMenuStrip1;
             this.button203.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button203.Location = new System.Drawing.Point(317, 90);
             this.button203.Name = "button203";
@@ -436,10 +580,13 @@ namespace QuanLyKS
             this.button203.Text = "P203";
             this.button203.UseVisualStyleBackColor = false;
             this.button203.Click += new System.EventHandler(this.Zoom_Click);
+            this.button203.MouseHover += new System.EventHandler(this.button206_MouseHover);
+            this.button203.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Zoom_MouseUp);
             // 
             // button101
             // 
             this.button101.BackColor = System.Drawing.Color.Yellow;
+            this.button101.ContextMenuStrip = this.contextMenuStrip1;
             this.button101.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button101.Location = new System.Drawing.Point(39, 302);
             this.button101.Name = "button101";
@@ -448,10 +595,13 @@ namespace QuanLyKS
             this.button101.Text = "P101";
             this.button101.UseVisualStyleBackColor = false;
             this.button101.Click += new System.EventHandler(this.Zoom_Click);
+            this.button101.MouseHover += new System.EventHandler(this.button206_MouseHover);
+            this.button101.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Zoom_MouseUp);
             // 
             // button102
             // 
             this.button102.BackColor = System.Drawing.Color.Yellow;
+            this.button102.ContextMenuStrip = this.contextMenuStrip1;
             this.button102.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button102.Location = new System.Drawing.Point(39, 196);
             this.button102.Name = "button102";
@@ -460,10 +610,13 @@ namespace QuanLyKS
             this.button102.Text = "P102";
             this.button102.UseVisualStyleBackColor = false;
             this.button102.Click += new System.EventHandler(this.Zoom_Click);
+            this.button102.MouseHover += new System.EventHandler(this.button206_MouseHover);
+            this.button102.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Zoom_MouseUp);
             // 
             // button103
             // 
             this.button103.BackColor = System.Drawing.Color.Yellow;
+            this.button103.ContextMenuStrip = this.contextMenuStrip1;
             this.button103.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button103.Location = new System.Drawing.Point(39, 90);
             this.button103.Name = "button103";
@@ -472,6 +625,8 @@ namespace QuanLyKS
             this.button103.Text = "P103";
             this.button103.UseVisualStyleBackColor = false;
             this.button103.Click += new System.EventHandler(this.Zoom_Click);
+            this.button103.MouseHover += new System.EventHandler(this.button206_MouseHover);
+            this.button103.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Zoom_MouseUp);
             // 
             // label3
             // 
@@ -502,12 +657,15 @@ namespace QuanLyKS
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(255, 43);
+            this.btnEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEdit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.btnEdit.Location = new System.Drawing.Point(263, 43);
             this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(99, 60);
+            this.btnEdit.Size = new System.Drawing.Size(91, 60);
             this.btnEdit.TabIndex = 8;
             this.btnEdit.Text = "Chỉnh Sửa";
             this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // label7
             // 
@@ -676,9 +834,9 @@ namespace QuanLyKS
             // 
             // button21
             // 
-            this.button21.Location = new System.Drawing.Point(260, 38);
+            this.button21.Location = new System.Drawing.Point(212, 38);
             this.button21.Name = "button21";
-            this.button21.Size = new System.Drawing.Size(95, 61);
+            this.button21.Size = new System.Drawing.Size(80, 60);
             this.button21.TabIndex = 12;
             this.button21.Text = "Báo Cáo";
             this.button21.UseVisualStyleBackColor = true;
@@ -686,7 +844,7 @@ namespace QuanLyKS
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(837, 572);
+            this.label11.Location = new System.Drawing.Point(837, 552);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(32, 13);
             this.label11.TabIndex = 13;
@@ -695,7 +853,7 @@ namespace QuanLyKS
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(837, 601);
+            this.label12.Location = new System.Drawing.Point(837, 578);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(61, 13);
             this.label12.TabIndex = 14;
@@ -703,7 +861,7 @@ namespace QuanLyKS
             // 
             // tbTotal
             // 
-            this.tbTotal.Location = new System.Drawing.Point(927, 572);
+            this.tbTotal.Location = new System.Drawing.Point(927, 549);
             this.tbTotal.Name = "tbTotal";
             this.tbTotal.ReadOnly = true;
             this.tbTotal.Size = new System.Drawing.Size(134, 20);
@@ -711,7 +869,7 @@ namespace QuanLyKS
             // 
             // tfXtotal
             // 
-            this.tfXtotal.Location = new System.Drawing.Point(927, 598);
+            this.tfXtotal.Location = new System.Drawing.Point(927, 575);
             this.tfXtotal.Name = "tfXtotal";
             this.tfXtotal.ReadOnly = true;
             this.tfXtotal.Size = new System.Drawing.Size(134, 20);
@@ -733,9 +891,20 @@ namespace QuanLyKS
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // btnExit
+            // 
+            this.btnExit.Location = new System.Drawing.Point(315, 38);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(80, 60);
+            this.btnExit.TabIndex = 18;
+            this.btnExit.Text = "Thoát";
+            this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            // 
             // MainForm
             // 
             this.ClientSize = new System.Drawing.Size(1086, 630);
+            this.Controls.Add(this.btnExit);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.tfXtotal);
             this.Controls.Add(this.tbTotal);
@@ -753,7 +922,10 @@ namespace QuanLyKS
             this.Controls.Add(this.button2);
             this.Controls.Add(this.btnLogout);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximumSize = new System.Drawing.Size(1102, 669);
+            this.MinimumSize = new System.Drawing.Size(1102, 669);
             this.Name = "MainForm";
             this.Text = "Quản Lý Khách Sạn";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
@@ -762,6 +934,7 @@ namespace QuanLyKS
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -838,6 +1011,19 @@ namespace QuanLyKS
         private System.Windows.Forms.Timer timer1;
         private RadioButton radioButton1;
         private Button button1;
+        private ContextMenuStrip contextMenuStrip1;
+        private ToolStripMenuItem trạngTháiToolStripMenuItem;
+        private ToolStripMenuItem phòngSạchToolStripMenuItem;
+        private ToolStripMenuItem pToolStripMenuItem;
+        private ToolStripMenuItem toolStripMenuItem2;
+        private ToolStripMenuItem phòngBảoTrìToolStripMenuItem;
+        private ToolStripMenuItem phòngĐangSửDụngToolStripMenuItem;
+        private ToolStripMenuItem đoàn1ToolStripMenuItem;
+        private ToolStripMenuItem đoàn2ToolStripMenuItem;
+        private ToolStripMenuItem đoàn3ToolStripMenuItem;
+        private ToolStripMenuItem ghiChúToolStripMenuItem;
+        private Button btnExit;
+        private ToolTip toolTip1;
 
     }
 }

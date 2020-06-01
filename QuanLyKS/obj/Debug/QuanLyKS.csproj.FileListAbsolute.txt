@@ -1,7 +1,6 @@
 E:\Soft\C# workshop\QuanLyKS\QuanLyKS\bin\Debug\QuanLyKS.exe.config
 E:\Soft\C# workshop\QuanLyKS\QuanLyKS\bin\Debug\QuanLyKS.exe
 E:\Soft\C# workshop\QuanLyKS\QuanLyKS\bin\Debug\QuanLyKS.pdb
-E:\Soft\C# workshop\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.csprojResolveAssemblyReference.cache
 E:\Soft\C# workshop\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.Form1.resources
 E:\Soft\C# workshop\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.Properties.Resources.resources
 E:\Soft\C# workshop\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.csproj.GenerateResource.Cache
@@ -13,3 +12,6 @@ E:\Soft\C# workshop\QuanLyKS\QuanLyKS\bin\Debug\EPPlus.dll
 E:\Soft\C# workshop\QuanLyKS\QuanLyKS\bin\Debug\EPPlus.xml
 E:\Soft\C# workshop\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.AddDialog.resources
 E:\Soft\C# workshop\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.EditDialog.resources
+E:\Soft\C# workshop\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.csprojResolveAssemblyReference.cache
+E:\Soft\C# workshop\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.NoteForm.resources
+E:\Soft\C# workshop\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.updateForm.resources
