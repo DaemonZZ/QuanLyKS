@@ -822,6 +822,7 @@ namespace QuanLyKS
             this.button19.TabIndex = 10;
             this.button19.Text = "Trả Phòng";
             this.button19.UseVisualStyleBackColor = true;
+            this.button19.Click += new System.EventHandler(this.button19_Click);
             // 
             // button20
             // 

@@ -113,6 +113,7 @@
             this.btnOK.TabIndex = 1;
             this.btnOK.Text = "Sửa";
             this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
             // btnCancel
             // 

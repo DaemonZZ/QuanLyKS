@@ -305,8 +305,12 @@ namespace QuanLyKS
 
         private void button1_Click(object sender, EventArgs e)
         {
-            EditDialog ed = new EditDialog(selectedZoom);
-            ed.ShowDialog();
+            if (selectedZoom != "NULL")
+            {
+                EditDialog ed = new EditDialog(selectedZoom,dataGridView1.SelectedRows[0].Index);
+                ed.ShowDialog();
+                getThongTinPhong();
+            }
         }
 
         private void đóngToolStripMenuItem_Click(object sender, EventArgs e)
@@ -404,6 +408,40 @@ namespace QuanLyKS
                 updateForm uF = new updateForm(selectedZoom);
                 uF.ShowDialog();
                 getThongTinPhong();
+            }
+        }
+
+        private void button19_Click(object sender, EventArgs e)
+        {
+            if (selectedZoom != "NULL")
+            {
+                var package = new ExcelPackage(new FileInfo("CurrentCustomer.xlsx"));
+                ExcelWorksheet a = package.Workbook.Worksheets[0];
+                for (int i = 1; i <= a.Dimension.End.Row; i++)
+                {
+                    if (Convert.ToString(a.Cells[i + 1, 2].Value) == selectedZoom)
+                    {
+                        a.Cells[i, 2].Value = "";
+                        a.Cells[i, 3].Value = "";
+                        a.Cells[i + 1, 1].Value = "";
+                        a.Cells[i + 1, 3].Value = "";
+                        a.Cells[i + 1, 4].Value = "";
+                        a.Cells[i + 2, 2].Value = 3;
+                        a.Cells[i + 3, 2].Value = 0;
+                        a.Cells[i + 3, 3].Value = 0;
+                        for (int n = 1; n < 9; n++)
+                        {
+                            a.Cells[i + 3+n, 3].Value = 0;
+                            a.Cells[i + 3+n, 2].Value = 0;
+                            a.Cells[i + 3+n, 1].Value = "";
+                        }
+
+                    }
+                }
+                Byte[] bin = package.GetAsByteArray();
+                File.WriteAllBytes("CurrentCustomer.xlsx", bin);
+                getThongTinPhong();
+                Update();
             }
         }
 
