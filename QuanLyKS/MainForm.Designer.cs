@@ -151,19 +151,21 @@ namespace QuanLyKS
             // đăngXuấtToolStripMenuItem
             // 
             this.đăngXuấtToolStripMenuItem.Name = "đăngXuấtToolStripMenuItem";
-            this.đăngXuấtToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.đăngXuấtToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.đăngXuấtToolStripMenuItem.Text = "Đăng Xuất";
+            this.đăngXuấtToolStripMenuItem.Click += new System.EventHandler(this.đăngXuấtToolStripMenuItem_Click);
             // 
             // gửiBáoCáoToolStripMenuItem
             // 
             this.gửiBáoCáoToolStripMenuItem.Name = "gửiBáoCáoToolStripMenuItem";
-            this.gửiBáoCáoToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.gửiBáoCáoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.gửiBáoCáoToolStripMenuItem.Text = "Gửi Báo Cáo";
+            this.gửiBáoCáoToolStripMenuItem.Click += new System.EventHandler(this.gửiBáoCáoToolStripMenuItem_Click);
             // 
             // đóngToolStripMenuItem
             // 
             this.đóngToolStripMenuItem.Name = "đóngToolStripMenuItem";
-            this.đóngToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.đóngToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.đóngToolStripMenuItem.Text = "Đóng";
             this.đóngToolStripMenuItem.Click += new System.EventHandler(this.đóngToolStripMenuItem_Click);
             // 
@@ -262,6 +264,7 @@ namespace QuanLyKS
             this.button2.TabIndex = 2;
             this.button2.Text = "Danh Bạ";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // panel1
             // 
@@ -841,6 +844,7 @@ namespace QuanLyKS
             this.button21.TabIndex = 12;
             this.button21.Text = "Báo Cáo";
             this.button21.UseVisualStyleBackColor = true;
+            this.button21.Click += new System.EventHandler(this.button21_Click);
             // 
             // label11
             // 

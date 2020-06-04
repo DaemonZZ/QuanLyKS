@@ -19,6 +19,8 @@ namespace QuanLyKS
         private string selectedZoom = "NULL";
         private string hoverZoom="NULL";
         private string note;
+        private KhachHang info ;
+        public static MainForm m;
 
         public string Note
         {
@@ -40,6 +42,7 @@ namespace QuanLyKS
         //
         public MainForm()
         {
+            m = this;
             InitializeComponent();
             Update();
         }
@@ -76,6 +79,13 @@ namespace QuanLyKS
                         {
                             int n = Convert.ToInt16(a.Cells[i + 2, 2].Value);
                             item.setStatus(n);
+                            if (Convert.ToString(a.Cells[i, 3].Value) != "")
+                            {
+                                DateTime od = Convert.ToDateTime(a.Cells[i, 3].Value);
+                                TimeSpan ts = od - DateTime.Now;
+                                int t = ts.Days;
+                                if ((t == 0 || t==1) && item.getStatus() == 1) item.setStatus(2);
+                            }
                            
                         }
                     }
@@ -116,6 +126,7 @@ namespace QuanLyKS
                             case 8: itemB.BackColor = System.Drawing.Color.Orange;
                                 break;
                         }
+                        
                     }
                 }
             }
@@ -246,6 +257,8 @@ namespace QuanLyKS
                 {
                     a.Cells[i, 2].Value = "";
                     a.Cells[i, 3].Value = "";
+                    a.Cells[i, 4].Value = "";
+
                     a.Cells[i + 1, 1].Value = "";
                     a.Cells[i + 1, 3].Value = "";
                     a.Cells[i + 1, 4].Value = "";
@@ -331,17 +344,30 @@ namespace QuanLyKS
                 {
                     
                     a.Cells[i + 2, 2].Value = index;
+                    if (Convert.ToString(a.Cells[i, 3].Value) != "")
+                    {
+                        DateTime od = Convert.ToDateTime(a.Cells[i, 3].Value);
+                        TimeSpan ts = od - DateTime.Now;
+                        int t = ts.Days;
+                        if ((t == 0||t==1) && index == 1)
+                        {
+                            a.Cells[i + 2, 2].Value = 2;
+                            MessageBox.Show("Phòng này đã được đặt trong ngày.\nVui lòng không bán!");
+                        }
+                        else if (index == 1 || index == 3 || index == 4)
+                        {
+                            DialogResult rs = MessageBox.Show("Reset dữ liệu phòng", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                            if (rs == DialogResult.Yes)
+                            {
+                                zoomResetStatus(selectedZoom);
+                            }
+                        }
+
+                    }
                 }
             }
             
-            if (index == 1 || index == 3 || index == 4)
-            {
-                DialogResult rs= MessageBox.Show("Reset dữ liệu phòng", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
-                if (rs == DialogResult.Yes)
-                {
-                    zoomResetStatus(selectedZoom);
-                }
-            }
+            
             Byte[] bin = package.GetAsByteArray();
             File.WriteAllBytes("CurrentCustomer.xlsx", bin);
             Update();
@@ -405,6 +431,23 @@ namespace QuanLyKS
         {
             if (selectedZoom != "NULL")
             {
+                var package = new ExcelPackage(new FileInfo("CurrentCustomer.xlsx"));
+                ExcelWorksheet a = package.Workbook.Worksheets[0];
+                for (int i = 1; i <= a.Dimension.End.Row; i++)
+                {
+                    if (Convert.ToString(a.Cells[i + 1, 2].Value) == selectedZoom && Convert.ToString(a.Cells[i,3].Value)!="")
+                    {
+                        DateTime od = Convert.ToDateTime(a.Cells[i, 3].Value);
+                        TimeSpan ts = od - DateTime.Now;
+                        int t = ts.Days;
+                        if (t > 1) MessageBox.Show("Phòng này đã được đặt trước vào ngày " + od + "\n Chỉ bán " + (t-1) + " đêm!");
+                        else if (t == 0|| t==1) MessageBox.Show("Phòng này đã được đặt trong ngày.\nVui lòng không bán!");
+                        else a.Cells[i, 3].Value = "";
+                        
+                    }
+                }
+                Byte[] bin = package.GetAsByteArray();
+                File.WriteAllBytes("CurrentCustomer.xlsx", bin);
                 updateForm uF = new updateForm(selectedZoom);
                 uF.ShowDialog();
                 getThongTinPhong();
@@ -413,36 +456,99 @@ namespace QuanLyKS
 
         private void button19_Click(object sender, EventArgs e)
         {
+            bool dv = true, tt = true;
             if (selectedZoom != "NULL")
             {
                 var package = new ExcelPackage(new FileInfo("CurrentCustomer.xlsx"));
                 ExcelWorksheet a = package.Workbook.Worksheets[0];
+
+                
                 for (int i = 1; i <= a.Dimension.End.Row; i++)
                 {
                     if (Convert.ToString(a.Cells[i + 1, 2].Value) == selectedZoom)
                     {
-                        a.Cells[i, 2].Value = "";
-                        a.Cells[i, 3].Value = "";
-                        a.Cells[i + 1, 1].Value = "";
-                        a.Cells[i + 1, 3].Value = "";
-                        a.Cells[i + 1, 4].Value = "";
-                        a.Cells[i + 2, 2].Value = 3;
-                        a.Cells[i + 3, 2].Value = 0;
-                        a.Cells[i + 3, 3].Value = 0;
-                        for (int n = 1; n < 9; n++)
+                        DateTime co = new DateTime();
+                        if (Convert.ToString(a.Cells[i + 1, 4].Value) == "")
                         {
-                            a.Cells[i + 3+n, 3].Value = 0;
-                            a.Cells[i + 3+n, 2].Value = 0;
-                            a.Cells[i + 3+n, 1].Value = "";
+                            co = DateTime.Now;
                         }
+                        else co = Convert.ToDateTime(a.Cells[i + 1, 4].Value);
+
+                        if (Convert.ToString(a.Cells[i + 1, 3].Value) == "")
+                        {
+                            MessageBox.Show("Cập nhập đầy đủ thông tin khách hàng trước");
+                            btnEdit.PerformClick();
+                        }
+                        else
+                        {
+                            info = new KhachHang(Convert.ToString(a.Cells[i + 1, 1].Value), Convert.ToString(a.Cells[i + 1, 2].Value), Convert.ToDateTime(a.Cells[i + 1, 3].Value), co, Convert.ToInt32(a.Cells[i + 2, 4].Value), Convert.ToString(a.Cells[i,4].Value));
+                            if (info.Ten == "") info.Ten = "NoName";
+                            a.Cells[i, 2].Value = "";
+                            a.Cells[i + 1, 1].Value = "";
+                            a.Cells[i + 1, 3].Value = "";
+                            a.Cells[i + 1, 4].Value = "";
+                            a.Cells[i + 2, 2].Value = 3;
+                            a.Cells[i + 3, 2].Value = 0;
+                            a.Cells[i + 3, 3].Value = 0;
+                            for (int n = 1; n < 9; n++)
+                            {
+                                a.Cells[i + 3 + n, 3].Value = 0;
+                                a.Cells[i + 3 + n, 2].Value = 0;
+                                a.Cells[i + 3 + n, 1].Value = "";
+                            }
+                            Byte[] bin = package.GetAsByteArray();
+                            File.WriteAllBytes("CurrentCustomer.xlsx", bin);
+                        }
+                        Hoanthientt subform = new Hoanthientt(selectedZoom);
+                        subform.Show();
+                        LuuTru();
 
                     }
                 }
-                Byte[] bin = package.GetAsByteArray();
-                File.WriteAllBytes("CurrentCustomer.xlsx", bin);
+                
+
                 getThongTinPhong();
                 Update();
             }
+        }
+        public void LuuTru()
+        {
+            var save = new ExcelPackage(new FileInfo("CustomerLog.xlsx"));
+            ExcelWorksheet b = save.Workbook.Worksheets[0];
+            int i = b.Dimension.End.Row + 1;
+            b.Cells[i, 1].Value = info.Ten;
+            b.Cells[i, 2].Value = info.Phong;
+            b.Cells[i, 3].Value = Convert.ToString(info.CheckIn);
+            b.Cells[i, 4].Value = Convert.ToString(info.CheckOut);
+            b.Cells[i, 5].Value = Convert.ToString(info.Tong);
+            b.Cells[i, 6].Value = info.Hd; 
+            Byte[] bin2 = save.GetAsByteArray();
+            File.WriteAllBytes("CustomerLog.xlsx", bin2);
+        }
+
+        private void button21_Click(object sender, EventArgs e)
+        {
+            ReportForm rp = new ReportForm();
+            rp.ShowDialog();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            DanhBa db = new DanhBa();
+            db.ShowDialog();
+        }
+
+        private void gửiBáoCáoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ReportForm rp = new ReportForm();
+            rp.ShowDialog();
+        }
+
+        private void đăngXuấtToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form1 f1 = new Form1();
+            f1.Show();
+            this.Dispose();
         }
 
     }

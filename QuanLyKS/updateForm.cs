@@ -30,6 +30,8 @@ namespace QuanLyKS
                     tbZoom.Text = currentZoom;
                     tbCI.Text = Convert.ToString(a.Cells[i + 1, 3].Value);
                     tbCO.Text = Convert.ToString(a.Cells[i + 1, 4].Value);
+                    if (Convert.ToString(a.Cells[i, 4].Value) == "Yes") checkBox1.Checked = true;
+                    else checkBox1.Checked = false;
 
                     int stt = Convert.ToInt16(a.Cells[i + 2, 2].Value);
                     cbStt.SelectedIndex = stt-1;
@@ -135,6 +137,19 @@ namespace QuanLyKS
                     } break;
 
             }
+            var package = new ExcelPackage(new FileInfo("CurrentCustomer.xlsx"));
+            ExcelWorksheet a = package.Workbook.Worksheets[0];
+            for (int i = 1; i <= a.Dimension.End.Row; i++)
+            {
+                if (Convert.ToString(a.Cells[i + 1, 2].Value) == currentZoom)
+                {
+                    a.Cells[i + 2, 2].Value = cbStt.SelectedIndex + 1;
+                }
+            }
+
+            Byte[] bin = package.GetAsByteArray();
+            File.WriteAllBytes("CurrentCustomer.xlsx", bin);
+           
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -172,7 +187,7 @@ namespace QuanLyKS
                             break;
                         }
                     }
-                    else a.Cells[i + 1, 4].Value = "";
+                    else a.Cells[i + 1, 3].Value = "";
 
                     if (tbCO.Text != "")
                     {
@@ -209,16 +224,20 @@ namespace QuanLyKS
                         }
                     }
                     else a.Cells[i, 3].Value = "";
+                    if (checkBox1.Checked) a.Cells[i, 4].Value = "Yes";
+                    else a.Cells[i, 4].Value = "No";
 
                     a.Cells[i + 1, 1].Value = tbTen.Text;
                     a.Cells[i + 2, 2].Value = cbStt.SelectedIndex + 1;
                     
                 }
             }
+            
             if (test)
             {
                 Byte[] bin = package.GetAsByteArray();
                 File.WriteAllBytes("CurrentCustomer.xlsx", bin);
+                MainForm.m.Update();
                 this.Dispose();
             }
         }
