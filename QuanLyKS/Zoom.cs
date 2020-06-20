@@ -8,39 +8,27 @@ namespace QuanLyKS
 {
     class Zoom
     {
+        private int idPhong;
         private string phong;
-        private int cost;
         private int status;
-        public Zoom(string phong, int cost,int status)
+        public Zoom(int idPhong, string phong,int status)
         {
+            this.idPhong = idPhong;
             this.phong = phong;
-            this.cost = cost;
             this.status = status;
         }
         #region
-        public void setPhong(string phong)
-        {
-            this.phong = phong;
-        }
         public string getPhong()
         {
             return phong;
         }
-        public void setCost(int cost)
+        public int getStatus()
         {
-            this.cost = cost;
-        }
-        public int getCost()
-        {
-            return cost;
+            return status;
         }
         public void setStatus(int status)
         {
             this.status = status;
-        }
-        public int getStatus()
-        {
-            return status;
         }
         #endregion
         

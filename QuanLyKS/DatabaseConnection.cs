@@ -66,7 +66,7 @@ namespace QuanLyKS
                     {
                         while (reader.Read())
                         {
-                            Zoom a = new Zoom(reader.GetString(0), reader.GetInt32(1), reader.GetInt32(2));
+                            Zoom a = new Zoom(reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2));
                             list.Add(a);
                         }
                     }
