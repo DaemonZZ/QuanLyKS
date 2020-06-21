@@ -16,7 +16,7 @@ namespace QuanLyKS
         List<Zoom> ListZoom = new DatabaseConnection().getListZoom();
         List<System.Windows.Forms.Button> B = new List<System.Windows.Forms.Button>();
         
-        private string selectedZoom = "NULL";
+        private int selectedZoom = 0;
         private string hoverZoom="NULL";
         private string note;
         private KhachHang info ;
@@ -30,11 +30,11 @@ namespace QuanLyKS
         //
         //get set
         //
-        public void setSelectedZoom(string selectedZoom)
+        public void setSelectedZoom(int selectedZoom)
         {
             this.selectedZoom = selectedZoom;
         }
-        public string getSelectedZoom()
+        public int getSelectedZoom()
         {
             return selectedZoom;
         }
@@ -49,7 +49,7 @@ namespace QuanLyKS
         //
         // Hàm Update gọi cùng MainForm để cập nhập dữ liệu hiện tại từ Excel
         // 
-        public void Update()
+        public void Update() //ok
         {
             radioButton1.Text = Form1.username;
             B.Add(button101);
@@ -67,31 +67,33 @@ namespace QuanLyKS
             B.Add(button205);
             B.Add(button206);
             B.Add(button207);
-            var package = new ExcelPackage(new FileInfo("CurrentCustomer.xlsx"));
-            ExcelWorksheet a = package.Workbook.Worksheets[0];
-            for (int i = 1; i <= a.Dimension.End.Row; i++)
-            {
-                if (Convert.ToString(a.Cells[i, 1].Value) == "NewKH")
-                {
-                    foreach (var item in ListZoom)
-                    {
-                        if (item.getPhong() == Convert.ToString(a.Cells[i + 1, 2].Value))
-                        {
-                            int n = Convert.ToInt16(a.Cells[i + 2, 2].Value);
-                            item.setStatus(n);
-                            if (Convert.ToString(a.Cells[i, 3].Value) != "")
-                            {
-                                DateTime od = Convert.ToDateTime(a.Cells[i, 3].Value);
-                                TimeSpan ts = od - DateTime.Now;
-                                int t = ts.Days;
-                                if ((t == 0 || t==1) && item.getStatus() == 1) item.setStatus(2);
-                            }
+            #region Sử dụng Excel - -
+            //var package = new ExcelPackage(new FileInfo("CurrentCustomer.xlsx"));
+            //ExcelWorksheet a = package.Workbook.Worksheets[0];
+            //for (int i = 1; i <= a.Dimension.End.Row; i++)
+            //{
+            //    if (Convert.ToString(a.Cells[i, 1].Value) == "NewKH")
+            //    {
+            //        foreach (var item in ListZoom)
+            //        {
+            //            if (item.getPhong() == Convert.ToString(a.Cells[i + 1, 2].Value))
+            //            {
+            //                int n = Convert.ToInt16(a.Cells[i + 2, 2].Value);
+            //                item.setStatus(n);
+            //                if (Convert.ToString(a.Cells[i, 3].Value) != "")
+            //                {
+            //                    DateTime od = Convert.ToDateTime(a.Cells[i, 3].Value);
+            //                    TimeSpan ts = od - DateTime.Now;
+            //                    int t = ts.Days;
+            //                    if ((t == 0 || t==1) && item.getStatus() == 1) item.setStatus(2);
+            //                }
                            
-                        }
-                    }
+            //            }
+            //        }
 
-                }
-            }
+            //    }
+            //}
+            #endregion
 
             /*Trạng thái Phòng
              * 1. Phòng Sạch
@@ -136,10 +138,10 @@ namespace QuanLyKS
         //
         //Clear Form
         //
-        public void clear()
+        public void clear() //ok
         {
             
-            setSelectedZoom("NULL");
+            setSelectedZoom(0);
 
             tbName.Text = "";
             tbPhong.Text = "";
@@ -156,7 +158,7 @@ namespace QuanLyKS
         }
 
 
-        private void btnLogout_Click(object sender, EventArgs e)
+        private void btnLogout_Click(object sender, EventArgs e) //ok
         {
             Form1 f1 = new Form1();
             f1.Show();
@@ -166,82 +168,114 @@ namespace QuanLyKS
         //
         //Sự Kien chung khi bấm nút chọn phòng
         //
-        private void Zoom_Click(object sender, EventArgs e)
+        private void Zoom_Click(object sender, EventArgs e)//ok
         {
             
             //
             //Kiêm tra nút bấm
             //
             string t = sender.ToString();
-            selectedZoom = t.Substring(t.Length - 4);
+             selectedZoom = Convert.ToInt32(t.Substring(t.Length - 3));
             
-            getThongTinPhong();
+            getThongTinPhong(selectedZoom);
         }
-        public void getThongTinPhong()
+        public void getThongTinPhong(int s)//ok
         {
-            List<ThongTinDichVu> listDV = new List<ThongTinDichVu>();
-            
-            //MessageBox.Show(selectedZoom);
-
-            var package = new ExcelPackage(new FileInfo("CurrentCustomer.xlsx"));
-            ExcelWorksheet a = package.Workbook.Worksheets[0];
-
-
-            //
-            //Load thông tin từ Excel
-            //
-            for (int i = 1; i <= a.Dimension.End.Row; i++)
+            string idBill = "";
+            int tong=0;
+            currentCustomerInfo info = new DatabaseConnection().getCurrentInfo(s);
+            tbName.Text = info.TenKH;
+            tbPhong.Text = info.Phong;
+            if (tbPhong.Text == "")
             {
-                if (Convert.ToString(a.Cells[i + 1, 2].Value) == selectedZoom)
+                tbCI.Text = "";
+                tbCO.Text = "";
+            }else
+            {
+                tbCI.Text = Convert.ToString(info.CI1);
+                tbCO.Text = Convert.ToString(info.CO1);
+            }
+            
+            
+            foreach (Zoom item in ListZoom)
+            {
+                if (item.getIdPhong() == selectedZoom)
                 {
-                    tbName.Text = Convert.ToString(a.Cells[i + 1, 1].Value);
-                    tbPhong.Text = selectedZoom;
-                    tbCI.Text = Convert.ToString(a.Cells[i + 1, 3].Value);
-                    tbCO.Text = Convert.ToString(a.Cells[i + 1, 4].Value);
-                    //MessageBox.Show(Convert.ToString(a.Cells[i + 4, 3].Value));
-
-
-                    //
-                    //Load List DV
-                    //
-                    /*
-                     * Dòng đầu dịch vụ phòng luôn có. khách chưa trả thì in ra 2 ô sl và dv trông
-                     * từ dòng thứ 2 là các dịch vụ đi kem có thể có hoặc không
-                     * dùng Int32 cho giá phòng vì Int16 out of range
-                     */
-
-                    if (Convert.ToString(a.Cells[i + 3, 3].Value) == "")
-                    {
-                        listDV.Add(new ThongTinDichVu(Convert.ToString(a.Cells[i + 3, 1].Value), Convert.ToInt32(a.Cells[i + 3, 2].Value), 0));
-                    }
-                    else listDV.Add(new ThongTinDichVu(Convert.ToString(a.Cells[i + 3, 1].Value), Convert.ToInt32(a.Cells[i + 3, 2].Value), Convert.ToInt32(a.Cells[i + 3, 3].Value)));
-                    for (int j = 1; j < 9; j++)
-                    {
-                        if (Convert.ToString(a.Cells[i + 3 + j, 1].Value) == "") break;
-                        else
-                        {
-                            listDV.Add(new ThongTinDichVu(Convert.ToString(a.Cells[i + 3 + j, 1].Value), Convert.ToInt32(a.Cells[i + 3 + j, 2].Value), Convert.ToInt32(a.Cells[i + 3 + j, 3].Value)));
-                            //MessageBox.Show(Convert.ToString(a.Cells[i + 3 + j, 3].Value));
-                        }
-                    }
-
-                    dataGridView1.DataSource = listDV;
-                    dataGridView1.AutoGenerateColumns = false;
-                    // Thiết lập vị trí cột
-                    dataGridView1.Columns[0].DataPropertyName = "dv";
-                    dataGridView1.Columns[1].DataPropertyName = "dg";
-                    dataGridView1.Columns[2].DataPropertyName = "sl";
-                    dataGridView1.Columns[3].DataPropertyName = "sum";
-                    //thiết lập tên hiển thị cột
-                    dataGridView1.Columns[0].HeaderText = "Dịch Vụ";
-                    dataGridView1.Columns[1].HeaderText = "Đơn Giá";
-                    dataGridView1.Columns[2].HeaderText = "Số Lượng";
-                    dataGridView1.Columns[3].HeaderText = "Tổng";
-                    // Tổng Phòng
-                    int tong = Convert.ToInt32(a.Cells[i + 2, 4].Value);
-                    tbTotal.Text = String.Format("{0:n0}", tong);
+                    idBill = item.getIdBill();
                 }
             }
+            
+            List<ThongTinDichVu> listDV = new DatabaseConnection().getDV(idBill);
+            dataGridView1.DataSource = listDV;
+            dataGridView1.AutoGenerateColumns = false;
+            // Thiết lập vị trí cột
+            dataGridView1.Columns[0].DataPropertyName = "dv";
+            dataGridView1.Columns[1].DataPropertyName = "dg";
+            dataGridView1.Columns[2].DataPropertyName = "sl";
+            dataGridView1.Columns[3].DataPropertyName = "sum";
+            //thiết lập tên hiển thị cột
+            dataGridView1.Columns[0].HeaderText = "Dịch Vụ";
+            dataGridView1.Columns[1].HeaderText = "Đơn Giá";
+            dataGridView1.Columns[2].HeaderText = "Số Lượng";
+            dataGridView1.Columns[3].HeaderText = "Tổng";
+            //MessageBox.Show(selectedZoom.ToString());
+
+            foreach (ThongTinDichVu item in listDV)
+            {
+                tong += item.Sum;
+            }
+
+            tbTotal.Text = String.Format("{0:n0}", tong);
+
+
+            //var package = new ExcelPackage(new FileInfo("CurrentCustomer.xlsx"));
+            //ExcelWorksheet a = package.Workbook.Worksheets[0];
+
+
+            ////
+            ////Load thông tin từ Excel
+            ////
+            //for (int i = 1; i <= a.Dimension.End.Row; i++)
+            //{
+            //    if (Convert.ToString(a.Cells[i + 1, 2].Value) == selectedZoom)
+            //    {
+            //        tbName.Text = Convert.ToString(a.Cells[i + 1, 1].Value);
+            //        tbPhong.Text = selectedZoom;
+            //        tbCI.Text = Convert.ToString(a.Cells[i + 1, 3].Value);
+            //        tbCO.Text = Convert.ToString(a.Cells[i + 1, 4].Value);
+            //        //MessageBox.Show(Convert.ToString(a.Cells[i + 4, 3].Value));
+
+
+            //        //
+            //        //Load List DV
+            //        //
+            //        /*
+            //         * Dòng đầu dịch vụ phòng luôn có. khách chưa trả thì in ra 2 ô sl và dv trông
+            //         * từ dòng thứ 2 là các dịch vụ đi kem có thể có hoặc không
+            //         * dùng Int32 cho giá phòng vì Int16 out of range
+            //         */
+
+            //        if (Convert.ToString(a.Cells[i + 3, 3].Value) == "")
+            //        {
+            //            listDV.Add(new ThongTinDichVu(Convert.ToString(a.Cells[i + 3, 1].Value), Convert.ToInt32(a.Cells[i + 3, 2].Value), 0));
+            //        }
+            //        else listDV.Add(new ThongTinDichVu(Convert.ToString(a.Cells[i + 3, 1].Value), Convert.ToInt32(a.Cells[i + 3, 2].Value), Convert.ToInt32(a.Cells[i + 3, 3].Value)));
+            //        for (int j = 1; j < 9; j++)
+            //        {
+            //            if (Convert.ToString(a.Cells[i + 3 + j, 1].Value) == "") break;
+            //            else
+            //            {
+            //                listDV.Add(new ThongTinDichVu(Convert.ToString(a.Cells[i + 3 + j, 1].Value), Convert.ToInt32(a.Cells[i + 3 + j, 2].Value), Convert.ToInt32(a.Cells[i + 3 + j, 3].Value)));
+            //                //MessageBox.Show(Convert.ToString(a.Cells[i + 3 + j, 3].Value));
+            //            }
+            //        }
+
+
+            //        // Tổng Phòng
+            //        int tong = Convert.ToInt32(a.Cells[i + 2, 4].Value);
+            //        tbTotal.Text = String.Format("{0:n0}", tong);
+            //    }
+            //}
 
         }
         //
@@ -301,229 +335,229 @@ namespace QuanLyKS
         }
         #endregion
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void timer1_Tick(object sender, EventArgs e)//ok
         {
             label10.Text = DateTime.Now.ToLongTimeString();
         }
 
-        private void button18_Click(object sender, EventArgs e)
+        private void button18_Click(object sender, EventArgs e)// Chưa sửa
         {
-            if (selectedZoom != "NULL")
-            {
-                AddDialog a = new AddDialog(selectedZoom);
-                a.ShowDialog();
-                getThongTinPhong();
-            }
+            //if (selectedZoom != 0)
+            //{
+            //    AddDialog a = new AddDialog(selectedZoom);
+            //    a.ShowDialog();
+            //    getThongTinPhong();
+            //}
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)// Chưa sửa
         {
-            if (selectedZoom != "NULL")
-            {
-                EditDialog ed = new EditDialog(selectedZoom,dataGridView1.SelectedRows[0].Index);
-                ed.ShowDialog();
-                getThongTinPhong();
-            }
+            //if (selectedZoom != "NULL")
+            //{
+            //    EditDialog ed = new EditDialog(selectedZoom,dataGridView1.SelectedRows[0].Index);
+            //    ed.ShowDialog();
+            //    getThongTinPhong();
+            //}
         }
 
-        private void đóngToolStripMenuItem_Click(object sender, EventArgs e)
+        private void đóngToolStripMenuItem_Click(object sender, EventArgs e)//ok
         {
             Application.Exit();
         }
 
-        private void ChooseStatus(object sender, EventArgs e)
+        private void ChooseStatus(object sender, EventArgs e)//Chưa sửa
         {
-            string s = sender.ToString().Substring(0,1);
-            int index = Convert.ToInt16(s);
-            var package = new ExcelPackage(new FileInfo("CurrentCustomer.xlsx"));
-            ExcelWorksheet a = package.Workbook.Worksheets[0];
+            //string s = sender.ToString().Substring(0,1);
+            //int index = Convert.ToInt16(s);
+            //var package = new ExcelPackage(new FileInfo("CurrentCustomer.xlsx"));
+            //ExcelWorksheet a = package.Workbook.Worksheets[0];
 
-            for (int i = 1; i <= a.Dimension.End.Row; i++)
-            {
-                if (Convert.ToString(a.Cells[i + 1, 2].Value) == selectedZoom)
-                {
+            //for (int i = 1; i <= a.Dimension.End.Row; i++)
+            //{
+            //    if (Convert.ToString(a.Cells[i + 1, 2].Value) == selectedZoom)
+            //    {
                     
-                    a.Cells[i + 2, 2].Value = index;
-                    if (Convert.ToString(a.Cells[i, 3].Value) != "")
-                    {
-                        DateTime od = Convert.ToDateTime(a.Cells[i, 3].Value);
-                        TimeSpan ts = od - DateTime.Now;
-                        int t = ts.Days;
-                        if ((t == 0||t==1) && index == 1)
-                        {
-                            a.Cells[i + 2, 2].Value = 2;
-                            MessageBox.Show("Phòng này đã được đặt trong ngày.\nVui lòng không bán!");
-                        }
-                        else if (index == 1 || index == 3 || index == 4)
-                        {
-                            DialogResult rs = MessageBox.Show("Reset dữ liệu phòng", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
-                            if (rs == DialogResult.Yes)
-                            {
-                                zoomResetStatus(selectedZoom);
-                            }
-                        }
+            //        a.Cells[i + 2, 2].Value = index;
+            //        if (Convert.ToString(a.Cells[i, 3].Value) != "")
+            //        {
+            //            DateTime od = Convert.ToDateTime(a.Cells[i, 3].Value);
+            //            TimeSpan ts = od - DateTime.Now;
+            //            int t = ts.Days;
+            //            if ((t == 0||t==1) && index == 1)
+            //            {
+            //                a.Cells[i + 2, 2].Value = 2;
+            //                MessageBox.Show("Phòng này đã được đặt trong ngày.\nVui lòng không bán!");
+            //            }
+            //            else if (index == 1 || index == 3 || index == 4)
+            //            {
+            //                DialogResult rs = MessageBox.Show("Reset dữ liệu phòng", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+            //                if (rs == DialogResult.Yes)
+            //                {
+            //                    zoomResetStatus(selectedZoom);
+            //                }
+            //            }
 
-                    }
-                }
-            }
+            //        }
+            //    }
+            //}
             
             
-            Byte[] bin = package.GetAsByteArray();
-            File.WriteAllBytes("CurrentCustomer.xlsx", bin);
-            Update();
+            //Byte[] bin = package.GetAsByteArray();
+            //File.WriteAllBytes("CurrentCustomer.xlsx", bin);
+            //Update();
         }
 
-        private void Zoom_MouseUp(object sender, MouseEventArgs e)
+        private void Zoom_MouseUp(object sender, MouseEventArgs e)//ok
         {
             if (e.Button == MouseButtons.Right)
             {
                 string t = sender.ToString();
-                selectedZoom = t.Substring(t.Length - 4);
+                selectedZoom = Convert.ToInt32(t.Substring(t.Length - 3));
             }
         }
 
-        private void btnExit_Click(object sender, EventArgs e)
+        private void btnExit_Click(object sender, EventArgs e)//ok
         {
             Application.Exit();
         }
         //
         //Thêm ghi chú cho phòng
         //
-        private void ghiChúToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ghiChúToolStripMenuItem_Click(object sender, EventArgs e)//Chưa sửa
         {
-            var package = new ExcelPackage(new FileInfo("CurrentCustomer.xlsx"));
-            ExcelWorksheet a = package.Workbook.Worksheets[0];
-            for (int i = 1; i <= a.Dimension.End.Row; i++)
-            {
-                if (Convert.ToString(a.Cells[i + 1, 2].Value) == selectedZoom)
-                {
+            //var package = new ExcelPackage(new FileInfo("CurrentCustomer.xlsx"));
+            //ExcelWorksheet a = package.Workbook.Worksheets[0];
+            //for (int i = 1; i <= a.Dimension.End.Row; i++)
+            //{
+            //    if (Convert.ToString(a.Cells[i + 1, 2].Value) == selectedZoom)
+            //    {
 
-                    NoteForm f = new NoteForm(selectedZoom);
-                    f.ShowDialog();
-                    getThongTinPhong();
-                }
-            }
+            //        NoteForm f = new NoteForm(selectedZoom);
+            //        f.ShowDialog();
+            //        getThongTinPhong();
+            //    }
+            //}
            
         }
 
         
 
-        private void button206_MouseHover(object sender, EventArgs e)
+        private void button206_MouseHover(object sender, EventArgs e)//Chưa Sửa
         {
-            string t = sender.ToString();
-           // MessageBox.Show( t.Substring(t.Length - 4));
-            hoverZoom = t.Substring(t.Length - 4);
-            var package = new ExcelPackage(new FileInfo("CurrentCustomer.xlsx"));
-            ExcelWorksheet a = package.Workbook.Worksheets[0];
-            for (int i = 1; i <= a.Dimension.End.Row; i++)
-            {
-                if (Convert.ToString(a.Cells[i + 1, 2].Value) == hoverZoom)
-                {
-                    toolTip1 = new ToolTip();
-                    Button v = (Button)sender;
-                    toolTip1.SetToolTip(v, Convert.ToString(a.Cells[i, 2].Value));
-                }
-            }
+           // string t = sender.ToString();
+           //// MessageBox.Show( t.Substring(t.Length - 4));
+           // hoverZoom = t.Substring(t.Length - 4);
+           // var package = new ExcelPackage(new FileInfo("CurrentCustomer.xlsx"));
+           // ExcelWorksheet a = package.Workbook.Worksheets[0];
+           // for (int i = 1; i <= a.Dimension.End.Row; i++)
+           // {
+           //     if (Convert.ToString(a.Cells[i + 1, 2].Value) == hoverZoom)
+           //     {
+           //         toolTip1 = new ToolTip();
+           //         Button v = (Button)sender;
+           //         toolTip1.SetToolTip(v, Convert.ToString(a.Cells[i, 2].Value));
+           //     }
+           // }
 
         }
 
-        private void btnEdit_Click(object sender, EventArgs e)
+        private void btnEdit_Click(object sender, EventArgs e)//Chưa Sửa
         {
-            if (selectedZoom != "NULL")
-            {
-                var package = new ExcelPackage(new FileInfo("CurrentCustomer.xlsx"));
-                ExcelWorksheet a = package.Workbook.Worksheets[0];
-                for (int i = 1; i <= a.Dimension.End.Row; i++)
-                {
-                    if (Convert.ToString(a.Cells[i + 1, 2].Value) == selectedZoom && Convert.ToString(a.Cells[i,3].Value)!="")
-                    {
-                        DateTime od = Convert.ToDateTime(a.Cells[i, 3].Value);
-                        TimeSpan ts = od - DateTime.Now;
-                        int t = ts.Days;
-                        if (t > 1) MessageBox.Show("Phòng này đã được đặt trước vào ngày " + od + "\n Chỉ bán " + (t-1) + " đêm!");
-                        else if (t == 0|| t==1) MessageBox.Show("Phòng này đã được đặt trong ngày.\nVui lòng không bán!");
-                        else a.Cells[i, 3].Value = "";
+            //if (selectedZoom != "NULL")
+            //{
+            //    var package = new ExcelPackage(new FileInfo("CurrentCustomer.xlsx"));
+            //    ExcelWorksheet a = package.Workbook.Worksheets[0];
+            //    for (int i = 1; i <= a.Dimension.End.Row; i++)
+            //    {
+            //        if (Convert.ToString(a.Cells[i + 1, 2].Value) == selectedZoom && Convert.ToString(a.Cells[i,3].Value)!="")
+            //        {
+            //            DateTime od = Convert.ToDateTime(a.Cells[i, 3].Value);
+            //            TimeSpan ts = od - DateTime.Now;
+            //            int t = ts.Days;
+            //            if (t > 1) MessageBox.Show("Phòng này đã được đặt trước vào ngày " + od + "\n Chỉ bán " + (t-1) + " đêm!");
+            //            else if (t == 0|| t==1) MessageBox.Show("Phòng này đã được đặt trong ngày.\nVui lòng không bán!");
+            //            else a.Cells[i, 3].Value = "";
                         
-                    }
-                }
-                Byte[] bin = package.GetAsByteArray();
-                File.WriteAllBytes("CurrentCustomer.xlsx", bin);
-                updateForm uF = new updateForm(selectedZoom);
-                uF.ShowDialog();
-                getThongTinPhong();
-            }
+            //        }
+            //    }
+            //    Byte[] bin = package.GetAsByteArray();
+            //    File.WriteAllBytes("CurrentCustomer.xlsx", bin);
+            //    updateForm uF = new updateForm(selectedZoom);
+            //    uF.ShowDialog();
+            //    getThongTinPhong();
+            //}
         }
 
-        private void button19_Click(object sender, EventArgs e)
+        private void button19_Click(object sender, EventArgs e)//Chưa sửa
         {
-            bool dv = true, tt = true;
-            if (selectedZoom != "NULL")
-            {
-                var package = new ExcelPackage(new FileInfo("CurrentCustomer.xlsx"));
-                ExcelWorksheet a = package.Workbook.Worksheets[0];
+            //bool dv = true, tt = true;
+            //if (selectedZoom != "NULL")
+            //{
+            //    var package = new ExcelPackage(new FileInfo("CurrentCustomer.xlsx"));
+            //    ExcelWorksheet a = package.Workbook.Worksheets[0];
 
                 
-                for (int i = 1; i <= a.Dimension.End.Row; i++)
-                {
-                    if (Convert.ToString(a.Cells[i + 1, 2].Value) == selectedZoom)
-                    {
-                        DateTime co = new DateTime();
-                        if (Convert.ToString(a.Cells[i + 1, 4].Value) == "")
-                        {
-                            co = DateTime.Now;
-                        }
-                        else co = Convert.ToDateTime(a.Cells[i + 1, 4].Value);
+            //    for (int i = 1; i <= a.Dimension.End.Row; i++)
+            //    {
+            //        if (Convert.ToString(a.Cells[i + 1, 2].Value) == selectedZoom)
+            //        {
+            //            DateTime co = new DateTime();
+            //            if (Convert.ToString(a.Cells[i + 1, 4].Value) == "")
+            //            {
+            //                co = DateTime.Now;
+            //            }
+            //            else co = Convert.ToDateTime(a.Cells[i + 1, 4].Value);
 
-                        if (Convert.ToString(a.Cells[i + 1, 3].Value) == "")
-                        {
-                            MessageBox.Show("Cập nhập đầy đủ thông tin khách hàng trước");
-                            btnEdit.PerformClick();
-                        }
-                        else
-                        {
-                            info = new KhachHang(Convert.ToString(a.Cells[i + 1, 1].Value), Convert.ToString(a.Cells[i + 1, 2].Value), Convert.ToDateTime(a.Cells[i + 1, 3].Value), co, Convert.ToInt32(a.Cells[i + 2, 4].Value), Convert.ToString(a.Cells[i,4].Value));
-                            if (info.Ten == "") info.Ten = "NoName";
-                            a.Cells[i, 2].Value = "";
-                            a.Cells[i + 1, 1].Value = "";
-                            a.Cells[i + 1, 3].Value = "";
-                            a.Cells[i + 1, 4].Value = "";
-                            a.Cells[i + 2, 2].Value = 3;
-                            a.Cells[i + 3, 2].Value = 0;
-                            a.Cells[i + 3, 3].Value = 0;
-                            for (int n = 1; n < 9; n++)
-                            {
-                                a.Cells[i + 3 + n, 3].Value = 0;
-                                a.Cells[i + 3 + n, 2].Value = 0;
-                                a.Cells[i + 3 + n, 1].Value = "";
-                            }
-                            Byte[] bin = package.GetAsByteArray();
-                            File.WriteAllBytes("CurrentCustomer.xlsx", bin);
-                        }
-                        Hoanthientt subform = new Hoanthientt(selectedZoom);
-                        subform.Show();
-                        LuuTru();
+            //            if (Convert.ToString(a.Cells[i + 1, 3].Value) == "")
+            //            {
+            //                MessageBox.Show("Cập nhập đầy đủ thông tin khách hàng trước");
+            //                btnEdit.PerformClick();
+            //            }
+            //            else
+            //            {
+            //                info = new KhachHang(Convert.ToString(a.Cells[i + 1, 1].Value), Convert.ToString(a.Cells[i + 1, 2].Value), Convert.ToDateTime(a.Cells[i + 1, 3].Value), co, Convert.ToInt32(a.Cells[i + 2, 4].Value), Convert.ToString(a.Cells[i,4].Value));
+            //                if (info.Ten == "") info.Ten = "NoName";
+            //                a.Cells[i, 2].Value = "";
+            //                a.Cells[i + 1, 1].Value = "";
+            //                a.Cells[i + 1, 3].Value = "";
+            //                a.Cells[i + 1, 4].Value = "";
+            //                a.Cells[i + 2, 2].Value = 3;
+            //                a.Cells[i + 3, 2].Value = 0;
+            //                a.Cells[i + 3, 3].Value = 0;
+            //                for (int n = 1; n < 9; n++)
+            //                {
+            //                    a.Cells[i + 3 + n, 3].Value = 0;
+            //                    a.Cells[i + 3 + n, 2].Value = 0;
+            //                    a.Cells[i + 3 + n, 1].Value = "";
+            //                }
+            //                Byte[] bin = package.GetAsByteArray();
+            //                File.WriteAllBytes("CurrentCustomer.xlsx", bin);
+            //            }
+            //            Hoanthientt subform = new Hoanthientt(selectedZoom);
+            //            subform.Show();
+            //            LuuTru();
 
-                    }
-                }
+            //        }
+            //    }
                 
 
-                getThongTinPhong();
-                Update();
-            }
+            //    getThongTinPhong();
+            //    Update();
+            //}
         }
-        public void LuuTru()
+        public void LuuTru()//Chưa sửa
         {
-            var save = new ExcelPackage(new FileInfo("CustomerLog.xlsx"));
-            ExcelWorksheet b = save.Workbook.Worksheets[0];
-            int i = b.Dimension.End.Row + 1;
-            b.Cells[i, 1].Value = info.Ten;
-            b.Cells[i, 2].Value = info.Phong;
-            b.Cells[i, 3].Value = Convert.ToString(info.CheckIn);
-            b.Cells[i, 4].Value = Convert.ToString(info.CheckOut);
-            b.Cells[i, 5].Value = Convert.ToString(info.Tong);
-            b.Cells[i, 6].Value = info.Hd; 
-            Byte[] bin2 = save.GetAsByteArray();
-            File.WriteAllBytes("CustomerLog.xlsx", bin2);
+            //var save = new ExcelPackage(new FileInfo("CustomerLog.xlsx"));
+            //ExcelWorksheet b = save.Workbook.Worksheets[0];
+            //int i = b.Dimension.End.Row + 1;
+            //b.Cells[i, 1].Value = info.Ten;
+            //b.Cells[i, 2].Value = info.Phong;
+            //b.Cells[i, 3].Value = Convert.ToString(info.CheckIn);
+            //b.Cells[i, 4].Value = Convert.ToString(info.CheckOut);
+            //b.Cells[i, 5].Value = Convert.ToString(info.Tong);
+            //b.Cells[i, 6].Value = info.Hd; 
+            //Byte[] bin2 = save.GetAsByteArray();
+            //File.WriteAllBytes("CustomerLog.xlsx", bin2);
         }
 
         private void button21_Click(object sender, EventArgs e)

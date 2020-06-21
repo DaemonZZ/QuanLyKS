@@ -11,13 +11,19 @@ namespace QuanLyKS
         private int idPhong;
         private string phong;
         private int status;
-        public Zoom(int idPhong, string phong,int status)
+        private string idBill;
+        public Zoom(int idPhong, string phong,int status,string idBill)
         {
             this.idPhong = idPhong;
             this.phong = phong;
             this.status = status;
+            this.idBill = idBill;
         }
         #region
+        public int getIdPhong()
+        {
+            return idPhong;
+        }
         public string getPhong()
         {
             return phong;
@@ -31,7 +37,14 @@ namespace QuanLyKS
             this.status = status;
         }
         #endregion
-        
+        public string getIdBill()
+        {
+            return idBill;
+        }
+        public void setIdBill(string idBill)
+        {
+            this.idBill = idBill;
+        }
 
     }
        

@@ -9,65 +9,31 @@ namespace QuanLyKS
 {
     class KhachHang
     {
-        private string ten;
+        private string id, ten, cmnd;
+
+        public string Cmnd
+        {
+            get { return cmnd; }
+            set { cmnd = value; }
+        }
 
         public string Ten
         {
             get { return ten; }
             set { ten = value; }
         }
-        private string phong;
 
-        public string Phong
+        public string Id
         {
-            get { return phong; }
-            set { phong = value; }
+            get { return id; }
+            set { id = value; }
         }
-        private DateTime checkIn;
 
-        public DateTime CheckIn
+        public KhachHang(string id, string ten, string cmnd)
         {
-            get { return checkIn; }
-            set { checkIn = value; }
-        }
-        private DateTime checkOut;
-
-        public DateTime CheckOut
-        {
-            get { return checkOut; }
-            set { checkOut = value; }
-        }
-        private int tong;
-
-        public int Tong
-        {
-            get { return tong; }
-            set { tong = value; }
-        }
-        private string hd;
-
-        public string Hd
-        {
-            get { return hd; }
-            set { hd = value; }
-        }
-        public KhachHang()
-        {
-            this.ten = "";
-            this.phong = "";
-            this.checkIn = new DateTime();
-            this.checkOut = new DateTime();
-            this.tong = 0;
-            this.hd = "No";
-        }
-        public KhachHang(string ten, string phong, DateTime checkIn, DateTime checkOut,int tong,string hd)
-        {
+            this.id = id;
             this.ten = ten;
-            this.phong = phong;
-            this.checkIn = checkIn;
-            this.checkOut = checkOut;
-            this.tong = tong;
-            this.hd = hd;
+            this.cmnd = cmnd;
         }
 
     }

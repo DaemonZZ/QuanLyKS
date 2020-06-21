@@ -60,6 +60,7 @@
       <DependentUpon>AddDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="ConnectionString.cs" />
+    <Compile Include="currentCustomerInfo.cs" />
     <Compile Include="DatabaseConnection.cs" />
     <Compile Include="EditDialog.cs">
       <SubType>Form</SubType>

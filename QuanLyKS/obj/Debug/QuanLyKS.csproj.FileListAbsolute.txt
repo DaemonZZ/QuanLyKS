@@ -26,7 +26,6 @@ D:\Workspace\c#\QuanLyKS\QuanLyKS\bin\Debug\QuanLyKS.exe
 D:\Workspace\c#\QuanLyKS\QuanLyKS\bin\Debug\QuanLyKS.pdb
 D:\Workspace\c#\QuanLyKS\QuanLyKS\bin\Debug\EPPlus.dll
 D:\Workspace\c#\QuanLyKS\QuanLyKS\bin\Debug\EPPlus.xml
-D:\Workspace\c#\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.csprojResolveAssemblyReference.cache
 D:\Workspace\c#\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.AddDialog.resources
 D:\Workspace\c#\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.EditDialog.resources
 D:\Workspace\c#\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.Form1.resources
@@ -38,3 +37,6 @@ D:\Workspace\c#\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.Properties.Resources.resour
 D:\Workspace\c#\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.ReportForm.resources
 D:\Workspace\c#\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.updateForm.resources
 D:\Workspace\c#\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.csproj.GenerateResource.Cache
+D:\Workspace\c#\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.csprojAssemblyReference.cache
+D:\Workspace\c#\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.csproj.CoreCompileInputs.cache
+D:\Workspace\c#\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.csproj.CopyComplete
