@@ -15,8 +15,8 @@ namespace QuanLyKS
     public partial class EditDialog : Form
     {
         private int n;
-        private string curentZoom;
-        public EditDialog(string s,int index)
+        private int curentZoom;
+        public EditDialog(int s,int index)
         {
             n = index;
             this.curentZoom = s;
@@ -35,35 +35,35 @@ namespace QuanLyKS
         }
         public void load()
         {
-            var package = new ExcelPackage(new FileInfo("CurrentCustomer.xlsx"));
-            ExcelWorksheet a = package.Workbook.Worksheets[0];
-            for (int i = 1; i <= a.Dimension.End.Row; i++)
-            {
-                if (Convert.ToString(a.Cells[i + 1, 2].Value) == curentZoom)
-                {
-                    tbDichVu.Text = Convert.ToString(a.Cells[i + 3+n, 1].Value);
-                    tbDonGia.Text = Convert.ToString(a.Cells[i + 3+n, 2].Value);
-                    tbSoLuong.Text = Convert.ToString(a.Cells[i + 3+n, 3].Value);
-                }
-            }
+            //var package = new ExcelPackage(new FileInfo("CurrentCustomer.xlsx"));
+            //ExcelWorksheet a = package.Workbook.Worksheets[0];
+            //for (int i = 1; i <= a.Dimension.End.Row; i++)
+            //{
+            //    if (Convert.ToString(a.Cells[i + 1, 2].Value) == curentZoom)
+            //    {
+            //        tbDichVu.Text = Convert.ToString(a.Cells[i + 3+n, 1].Value);
+            //        tbDonGia.Text = Convert.ToString(a.Cells[i + 3+n, 2].Value);
+            //        tbSoLuong.Text = Convert.ToString(a.Cells[i + 3+n, 3].Value);
+            //    }
+            //}
         }
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            var package = new ExcelPackage(new FileInfo("CurrentCustomer.xlsx"));
-            ExcelWorksheet a = package.Workbook.Worksheets[0];
-            for (int i = 1; i <= a.Dimension.End.Row; i++)
-            {
-                if (Convert.ToString(a.Cells[i + 1, 2].Value) == curentZoom)
-                {
-                    a.Cells[i + 3 + n, 1].Value = tbDichVu.Text;
-                    a.Cells[i + 3 + n, 2].Value = tbDonGia.Text;
-                    a.Cells[i + 3 + n, 3].Value = tbSoLuong.Text;
-                }
-            }
-            Byte[] bin = package.GetAsByteArray();
-            File.WriteAllBytes("CurrentCustomer.xlsx", bin);
-            this.Dispose();
+            //var package = new ExcelPackage(new FileInfo("CurrentCustomer.xlsx"));
+            //ExcelWorksheet a = package.Workbook.Worksheets[0];
+            //for (int i = 1; i <= a.Dimension.End.Row; i++)
+            //{
+            //    if (Convert.ToString(a.Cells[i + 1, 2].Value) == curentZoom)
+            //    {
+            //        a.Cells[i + 3 + n, 1].Value = tbDichVu.Text;
+            //        a.Cells[i + 3 + n, 2].Value = tbDonGia.Text;
+            //        a.Cells[i + 3 + n, 3].Value = tbSoLuong.Text;
+            //    }
+            //}
+            //Byte[] bin = package.GetAsByteArray();
+            //File.WriteAllBytes("CurrentCustomer.xlsx", bin);
+            //this.Dispose();
         }
     }
 }

@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.tbSoLuong = new System.Windows.Forms.TextBox();
             this.tbDonGia = new System.Windows.Forms.TextBox();
-            this.tbDichVu = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -42,9 +42,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.comboBox1);
             this.groupBox1.Controls.Add(this.tbSoLuong);
             this.groupBox1.Controls.Add(this.tbDonGia);
-            this.groupBox1.Controls.Add(this.tbDichVu);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
@@ -54,6 +54,15 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Thông tin Dịch vụ";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(72, 37);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(157, 21);
+            this.comboBox1.TabIndex = 6;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // tbSoLuong
             // 
@@ -70,13 +79,6 @@
             this.tbDonGia.Size = new System.Drawing.Size(157, 20);
             this.tbDonGia.TabIndex = 4;
             this.tbDonGia.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_KeyPress);
-            // 
-            // tbDichVu
-            // 
-            this.tbDichVu.Location = new System.Drawing.Point(72, 37);
-            this.tbDichVu.Name = "tbDichVu";
-            this.tbDichVu.Size = new System.Drawing.Size(157, 20);
-            this.tbDichVu.TabIndex = 3;
             // 
             // label3
             // 
@@ -145,13 +147,14 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.TextBox tbSoLuong;
         private System.Windows.Forms.TextBox tbDonGia;
-        private System.Windows.Forms.TextBox tbDichVu;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Button btnCancel;
+        
     }
 }

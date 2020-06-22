@@ -8,7 +8,7 @@ namespace QuanLyKS
 {
     class ThongTinDichVu
     {
-        private string dv;
+        private string dv, id;
         private int dg, sl, sum;
 
         public int Sum
@@ -33,7 +33,9 @@ namespace QuanLyKS
             get { return dv; }
             set { dv = value; }
         }
-        
+
+        public string Id { get => id; set => id = value; }
+
         public ThongTinDichVu()
         {
             this.dv = "";
@@ -47,6 +49,12 @@ namespace QuanLyKS
             this.dg = dg;
             this.sl = sl;
             this.sum = dg * sl;
+        }
+        public ThongTinDichVu(string id, string dv,int dg)
+        {
+            this.dv = dv;
+            this.id = id;
+            this.dg = dg;
         }
        
     }
