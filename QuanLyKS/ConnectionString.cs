@@ -12,4 +12,5 @@ namespace QuanLyKS
         public static string filePath = "";
         public static string excelConnectionString = @"Driver={Provider=Microsoft.ACE.OLEDB.12.0;Microsoft Excel Driver (*.xls, *.xlsx, *.xlsm, *.xlsb)};DBQ=path to xls/xlsx/xlsm/xlsb file";
     }
+    //////////////////////////
 }
