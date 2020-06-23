@@ -9,21 +9,24 @@ namespace QuanLyKS
     class currentCustomerInfo
     {
         private string tenKH;
-        private DateTime CI;
-        private DateTime CO;
+        private string CI;
+        private string CO;
         private string phong;
+        private string order;
 
         public string TenKH { get => tenKH; set => tenKH = value; }
-        public DateTime CI1 { get => CI; set => CI = value; }
-        public DateTime CO1 { get => CO; set => CO = value; }
+        public string CI1 { get => CI; set => CI = value; }
+        public string CO1 { get => CO; set => CO = value; }
         public string Phong { get => phong; set => phong = value; }
+        public string Order { get => order; set => order = value; }
 
-        public currentCustomerInfo(string tenKH, DateTime cI, DateTime cO, string phong)
+        public currentCustomerInfo(string tenKH, string cI, string cO, string phong,string order)
         {
             this.tenKH = tenKH;
             CI = cI;
             CO = cO;
             this.phong = phong;
+            this.order = order;
         }
         public currentCustomerInfo()
         {

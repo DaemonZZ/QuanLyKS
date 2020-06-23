@@ -18,11 +18,11 @@ namespace QuanLyKS
         List<Zoom> ListZoom = new DatabaseConnection().getListZoom();
         List<System.Windows.Forms.Button> B = new List<System.Windows.Forms.Button>();
         DatabaseConnection conn = new DatabaseConnection();
-        
+
         private int selectedZoom = 0;
-        private int hoverZoom=0;
+        private int hoverZoom = 0;
         private string note;
-        private KhachHang info ;
+        private KhachHang info;
         public static MainForm m;
 
         public string Note
@@ -41,7 +41,7 @@ namespace QuanLyKS
         {
             return selectedZoom;
         }
-        
+
         //
         public MainForm()
         {
@@ -70,6 +70,7 @@ namespace QuanLyKS
         public void Update() //ok
         {
             radioButton1.Text = Form1.username;
+            ListZoom = new DatabaseConnection().getListZoom();
 
             #region Sử dụng Excel - -
             //var package = new ExcelPackage(new FileInfo("CurrentCustomer.xlsx"));
@@ -98,7 +99,7 @@ namespace QuanLyKS
             //    }
             //}
             #endregion
-           
+
 
             /*Trạng thái Phòng
              * 1. Phòng Sạch
@@ -116,24 +117,32 @@ namespace QuanLyKS
                     {
                         switch (itemZ.getStatus())
                         {
-                            case 1: itemB.BackColor = System.Drawing.Color.Yellow;
+                            case 1:
+                                itemB.BackColor = System.Drawing.Color.Yellow;
                                 break;
-                            case 2: itemB.BackColor = System.Drawing.Color.Lime;
+                            case 2:
+                                itemB.BackColor = System.Drawing.Color.Lime;
                                 break;
-                            case 3: itemB.BackColor = System.Drawing.Color.Aqua;
+                            case 3:
+                                itemB.BackColor = System.Drawing.Color.Aqua;
                                 break;
-                            case 4: itemB.BackColor = System.Drawing.Color.Gray;
+                            case 4:
+                                itemB.BackColor = System.Drawing.Color.Gray;
                                 break;
-                            case 5: itemB.BackColor = System.Drawing.Color.DeepPink;
+                            case 5:
+                                itemB.BackColor = System.Drawing.Color.DeepPink;
                                 break;
-                            case 6: itemB.BackColor = System.Drawing.Color.Red;
+                            case 6:
+                                itemB.BackColor = System.Drawing.Color.Red;
                                 break;
-                            case 7: itemB.BackColor = System.Drawing.Color.Purple;
+                            case 7:
+                                itemB.BackColor = System.Drawing.Color.Purple;
                                 break;
-                            case 8: itemB.BackColor = System.Drawing.Color.Orange;
+                            case 8:
+                                itemB.BackColor = System.Drawing.Color.Orange;
                                 break;
                         }
-                        
+
                     }
                 }
             }
@@ -145,7 +154,7 @@ namespace QuanLyKS
         //
         public void clear() //ok
         {
-            
+
             setSelectedZoom(0);
 
             tbName.Text = "";
@@ -154,7 +163,7 @@ namespace QuanLyKS
             tbCO.Text = "";
             //Xoá bảng
             dataGridView1.DataSource = new List<ThongTinDichVu>();
-            
+
             dataGridView1.Columns[0].HeaderText = "Dịch Vụ";
             dataGridView1.Columns[1].HeaderText = "Đơn Giá";
             dataGridView1.Columns[2].HeaderText = "Số Lượng";
@@ -175,19 +184,19 @@ namespace QuanLyKS
         //
         private void Zoom_Click(object sender, EventArgs e)//ok
         {
-            
+
             //
             //Kiêm tra nút bấm
             //
             string t = sender.ToString();
-             selectedZoom = Convert.ToInt32(t.Substring(t.Length - 3));
-            
+            selectedZoom = Convert.ToInt32(t.Substring(t.Length - 3));
+
             getThongTinPhong(selectedZoom);
         }
         public void getThongTinPhong(int s)//ok
         {
             string idBill = "";
-            int tong=0;
+            int tong = 0;
             currentCustomerInfo info = new DatabaseConnection().getCurrentInfo(s);
             tbName.Text = info.TenKH;
             tbPhong.Text = info.Phong;
@@ -195,13 +204,15 @@ namespace QuanLyKS
             {
                 tbCI.Text = "";
                 tbCO.Text = "";
-            }else
+            }
+            else
             {
                 tbCI.Text = Convert.ToString(info.CI1);
                 tbCO.Text = Convert.ToString(info.CO1);
             }
-            
-            
+
+            ListZoom = new DatabaseConnection().getListZoom();//Lấy lại thông tin phòng khi bị thay đổi
+
             foreach (Zoom item in ListZoom)
             {
                 if (item.getIdPhong() == selectedZoom)
@@ -223,7 +234,7 @@ namespace QuanLyKS
             dataGridView1.Columns[1].HeaderText = "Đơn Giá";
             dataGridView1.Columns[2].HeaderText = "Số Lượng";
             dataGridView1.Columns[3].HeaderText = "Tổng";
-            if(dataGridView1.ColumnCount>4) dataGridView1.Columns.RemoveAt(4);
+            if (dataGridView1.ColumnCount > 4) dataGridView1.Columns.RemoveAt(4);
             //MessageBox.Show(selectedZoom.ToString());
 
             foreach (ThongTinDichVu item in listDV)
@@ -287,7 +298,7 @@ namespace QuanLyKS
         //
         //Reset thong tin phong
         //
-        
+
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -320,12 +331,12 @@ namespace QuanLyKS
 
         private void button18_Click(object sender, EventArgs e)//ok
         {
-            
+
             //MessageBox.Show((x==v).ToString());
             if (selectedZoom != 0)
             {
                 string query = "select * from Phong where IdPhong='" + selectedZoom + "'";
-                Zoom phong=new Zoom();
+                Zoom phong = new Zoom();
                 using (SqlConnection conn = new SqlConnection(ConnectionString.connectionString))
                 {
                     conn.Open();
@@ -338,7 +349,7 @@ namespace QuanLyKS
                             if (!rd.IsDBNull(3)) phong.setIdBill(rd.GetString(3));
                         }
                     }
-                        conn.Close();
+                    conn.Close();
                 }
                 if (phong.getIdBill() != "")
                 {
@@ -388,8 +399,8 @@ namespace QuanLyKS
         {
             string s = sender.ToString().Substring(0, 1); // s = 1-->8
             int index = Convert.ToInt16(s);
-            string query = "update Phong set TrangThai =" + index + " where IdPhong=" + selectedZoom ;
-            using(SqlConnection conn = new SqlConnection(ConnectionString.connectionString))
+            string query = "update Phong set TrangThai =" + index + " where IdPhong=" + selectedZoom;
+            using (SqlConnection conn = new SqlConnection(ConnectionString.connectionString))
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(query, conn);
@@ -478,7 +489,7 @@ namespace QuanLyKS
         {
             string t = sender.ToString();
             // MessageBox.Show( t.Substring(t.Length - 4));
-            hoverZoom =Convert.ToInt32( t.Substring(t.Length - 3));
+            hoverZoom = Convert.ToInt32(t.Substring(t.Length - 3));
             #region Excel
             // var package = new ExcelPackage(new FileInfo("CurrentCustomer.xlsx"));
             // ExcelWorksheet a = package.Workbook.Worksheets[0];
@@ -492,10 +503,10 @@ namespace QuanLyKS
             //     }
             // }
             #endregion
-            toolTip1.SetToolTip(sender as Button,conn.getNoteOfZoom(hoverZoom));
+            toolTip1.SetToolTip(sender as Button, conn.getNoteOfZoom(hoverZoom));
         }
 
-        private void btnEdit_Click(object sender, EventArgs e)//Chưa Sửa
+        private void btnEdit_Click(object sender, EventArgs e)//ok??
         {
             #region Excel
             //if (selectedZoom != "NULL")
@@ -522,23 +533,68 @@ namespace QuanLyKS
             //    getThongTinPhong();
             //}
             #endregion
+            bool isUsing = false;
             if (selectedZoom != 0)
             {
-                updateForm uF = new updateForm(selectedZoom);
-                uF.ShowDialog();
-                getThongTinPhong(selectedZoom);
+                foreach (Zoom item in ListZoom)
+                {
+                    if (item.getIdPhong() == selectedZoom) isUsing = (item.getIdBill() != "");
+                }
+                if (isUsing)
+                {
+                    updateForm uF = new updateForm(selectedZoom, updateForm.EDIT);
+                    uF.ShowDialog();
+                    getThongTinPhong(selectedZoom);
+
+                }
+                else
+                {
+                    updateForm uF = new updateForm(selectedZoom, updateForm.ADD);
+                    uF.ShowDialog();
+                    getThongTinPhong(selectedZoom);
+                }
             }
         }
 
+        //Tra Phong
         private void button19_Click(object sender, EventArgs e)//Chưa sửa
         {
-            //bool dv = true, tt = true;
-            //if (selectedZoom != "NULL")
+            bool dv = true, tt = true;
+            
+            if (selectedZoom != 0)
+            {
+                if (tbCI.Text == "") tt = false;
+                List<ThongTinDichVu> ListDV = new DatabaseConnection().getDV(conn.getIDBill(selectedZoom),DatabaseConnection.EDIT);
+                foreach (ThongTinDichVu item in ListDV)
+                {
+                    if (item.Dg * item.Sl == 0) tt = false;
+                }
+                if(!tt)
+                {
+                    MessageBox.Show("Điền đầy đủ thông tin khách hàng trước khi thanh toán");
+                    updateForm uF = new updateForm(selectedZoom, updateForm.EDIT);
+                    uF.ShowDialog();
+                    getThongTinPhong(selectedZoom);
+                }
+                if (!dv)
+                {
+                    MessageBox.Show("Hoàn thanh thông tin dịch vụ trước");
+                   
+                }
+                if (tt && dv)
+                {
+                    if (tbCO.Text == "") tbCO.Text = (DateTime.Now).ToString();
+                    
+                }
+
+            }
+
+            #region
             //{
             //    var package = new ExcelPackage(new FileInfo("CurrentCustomer.xlsx"));
             //    ExcelWorksheet a = package.Workbook.Worksheets[0];
 
-                
+
             //    for (int i = 1; i <= a.Dimension.End.Row; i++)
             //    {
             //        if (Convert.ToString(a.Cells[i + 1, 2].Value) == selectedZoom)
@@ -581,11 +637,12 @@ namespace QuanLyKS
 
             //        }
             //    }
-                
+
 
             //    getThongTinPhong();
             //    Update();
             //}
+            #endregion
         }
         public void LuuTru()//Chưa sửa
         {

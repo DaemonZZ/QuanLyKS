@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnEdit = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.btnAddZoom = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.tbOrder = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -44,23 +46,26 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
-            this.performanceCounter1 = new System.Diagnostics.PerformanceCounter();
+            this.btnRs = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.performanceCounter1)).BeginInit();
             this.SuspendLayout();
             // 
-            // button2
+            // btnEdit
             // 
-            this.button2.Location = new System.Drawing.Point(311, 226);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "OK";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnEdit.Location = new System.Drawing.Point(369, 226);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(75, 23);
+            this.btnEdit.TabIndex = 1;
+            this.btnEdit.Text = "OK";
+            this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Visible = false;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.btnAddZoom);
             this.groupBox1.Controls.Add(this.checkBox1);
             this.groupBox1.Controls.Add(this.tbOrder);
             this.groupBox1.Controls.Add(this.label6);
@@ -80,6 +85,25 @@
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Thông tin";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(217, 163);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(35, 13);
+            this.label7.TabIndex = 14;
+            this.label7.Text = "label7";
+            // 
+            // btnAddZoom
+            // 
+            this.btnAddZoom.Location = new System.Drawing.Point(70, 158);
+            this.btnAddZoom.Name = "btnAddZoom";
+            this.btnAddZoom.Size = new System.Drawing.Size(100, 23);
+            this.btnAddZoom.TabIndex = 13;
+            this.btnAddZoom.Text = "Thêm Phòng";
+            this.btnAddZoom.UseVisualStyleBackColor = true;
+            this.btnAddZoom.Visible = false;
             // 
             // checkBox1
             // 
@@ -211,34 +235,56 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(162, 226);
+            this.button3.Location = new System.Drawing.Point(216, 226);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(89, 23);
             this.button3.TabIndex = 10;
-            this.button3.Text = "Reset";
+            this.button3.Text = "Nhập lại";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // btnRs
+            // 
+            this.btnRs.Location = new System.Drawing.Point(72, 226);
+            this.btnRs.Name = "btnRs";
+            this.btnRs.Size = new System.Drawing.Size(75, 23);
+            this.btnRs.TabIndex = 11;
+            this.btnRs.Text = "Reset";
+            this.btnRs.UseVisualStyleBackColor = true;
+            this.btnRs.Click += new System.EventHandler(this.btnRs_Click);
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Location = new System.Drawing.Point(369, 226);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnAdd.TabIndex = 12;
+            this.btnAdd.Text = "Thêm";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Visible = false;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // updateForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(537, 261);
+            this.Controls.Add(this.btnAdd);
+            this.Controls.Add(this.btnRs);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btnEdit);
             this.Name = "updateForm";
             this.Text = "Chỉnh Sửa Thông Tin";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-          //  ((System.ComponentModel.ISupportInitialize)(this.performanceCounter1)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
@@ -254,6 +300,9 @@
         private System.Windows.Forms.TextBox tbOrder;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.CheckBox checkBox1;
-        private System.Diagnostics.PerformanceCounter performanceCounter1;
+        private System.Windows.Forms.Button btnRs;
+        private System.Windows.Forms.Button btnAddZoom;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button btnAdd;
     }
 }

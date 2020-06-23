@@ -95,7 +95,8 @@ namespace QuanLyKS
                     while (reader.Read())
                     {
                         ThongTinDichVu info;
-                        info = new ThongTinDichVu(reader.GetString(0), reader.GetInt32(1), reader.GetInt32(2));
+                        info = new ThongTinDichVu(reader.GetString(0), reader.GetInt32(1), 0);
+                        if (!reader.IsDBNull(2)) info.Sl = reader.GetInt32(2);
                         serviceInfo.Add(info);
                     }
                 }
@@ -156,7 +157,7 @@ namespace QuanLyKS
         public currentCustomerInfo getCurrentInfo(int idPhong)
         {
             currentCustomerInfo info = new currentCustomerInfo();
-            string query = "select tenKH,CI,CO,TenPhong from Phong inner join Bill on Phong.IdBill=Bill.IdBill inner join KhachHang on  KhachHang.IdKH = Bill.IdKH where phong.IdPhong=" + idPhong;
+            string query = "select tenKH,CI,CO,TenPhong,LichDat from Phong inner join Bill on Phong.IdBill=Bill.IdBill inner join KhachHang on  KhachHang.IdKH = Bill.IdKH where phong.IdPhong=" + idPhong;
             using (SqlConnection conn = new SqlConnection(ConnectionString.connectionString))
             {
                 conn.Open();
@@ -165,7 +166,10 @@ namespace QuanLyKS
                 {
                     if (reader.Read())
                     {
-                        info = new currentCustomerInfo(reader.GetString(0), reader.GetDateTime(1), reader.GetDateTime(2), reader.GetString(3));
+                        info = new currentCustomerInfo(reader.GetString(0), "", "", reader.GetString(3),"");
+                        if (!reader.IsDBNull(1)) info.CI1 = reader.GetDateTime(1).ToString();
+                        if (!reader.IsDBNull(2)) info.CO1 = reader.GetDateTime(2).ToString();
+                        if (!reader.IsDBNull(4)) info.Order = reader.GetDateTime(4).ToString();
                     }
                 }
                 conn.Close();
@@ -180,7 +184,7 @@ namespace QuanLyKS
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.ExecuteNonQuery(); //Chưa test lại.
+                cmd.ExecuteNonQuery();
                 conn.Close();
             }
         }
@@ -188,7 +192,7 @@ namespace QuanLyKS
         {
             string nextBill = "";
             int count = 1;
-            string query = "select distinct IdBill from BillInfo";
+            string query = "select  IdBill from Bill";
             using (SqlConnection conn = new SqlConnection(ConnectionString.connectionString))
             {
                 conn.Open();
@@ -293,7 +297,67 @@ namespace QuanLyKS
             }
             return Gc;
         }
+        public List<DoanhThu> getListDT(string date)
+        {
+            List<DoanhThu> listDT = new List<DoanhThu>();
+            DateTime sDate ;
+            string query = "select * from DoanhThu ";
+            string filt = " where Ngay ='" + date + "'";
+            string sort = " order by Ngay DESC";
+            if (date == "")
+            {
+                listDT = new List<DoanhThu>();
+                using (SqlConnection conn = new SqlConnection(ConnectionString.connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(query+sort, conn);
+                    using (SqlDataReader rd = cmd.ExecuteReader())
+                    {
+                        while (rd.Read())
+                        {
+                            DoanhThu dt = new DoanhThu(rd.GetDateTime(0), "", rd.GetString(2), rd.GetString(3), 0, 0, "");
+                            if (!rd.IsDBNull(1)) dt.IdBill = rd.GetString(1);
+                            if (!rd.IsDBNull(4)) dt.Thu = rd.GetInt32(4);
+                            if (!rd.IsDBNull(5)) dt.Chi = rd.GetInt32(5);
+                            if (!rd.IsDBNull(6)) dt.Note = rd.GetString(6);
+                            listDT.Add(dt);
+                        }
+                    }
+                    conn.Close();
+                }
+            }
+            else
+            {
+                try
+                {
+                    sDate = Convert.ToDateTime(date);
+                    using (SqlConnection conn = new SqlConnection(ConnectionString.connectionString))
+                    {
+                        conn.Open();
+                        SqlCommand cmd = new SqlCommand(query+filt +sort, conn);
+                        using (SqlDataReader rd = cmd.ExecuteReader())
+                        {
+                            while (rd.Read())
+                            {
+                                DoanhThu dt = new DoanhThu(rd.GetDateTime(0), "", rd.GetString(2), rd.GetString(3), 0, 0, "");
+                                if (!rd.IsDBNull(1)) dt.IdBill = rd.GetString(1);
+                                if (!rd.IsDBNull(4)) dt.Thu = rd.GetInt32(4);
+                                if (!rd.IsDBNull(5)) dt.Chi = rd.GetInt32(5);
+                                if (!rd.IsDBNull(6)) dt.Note = rd.GetString(6);
+                                listDT.Add(dt);
+                            }
+                        }
+                        conn.Close();
+                    }
+                }
+                catch (Exception)
+                {
 
+                    throw;
+                }
+            }
+            return listDT; 
+        }
     }
 }
 
