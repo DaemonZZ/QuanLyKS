@@ -29,7 +29,6 @@ D:\Workspace\c#\QuanLyKS\QuanLyKS\bin\Debug\EPPlus.xml
 D:\Workspace\c#\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.AddDialog.resources
 D:\Workspace\c#\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.EditDialog.resources
 D:\Workspace\c#\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.Form1.resources
-D:\Workspace\c#\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.DanhBa.resources
 D:\Workspace\c#\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.Hoanthientt.resources
 D:\Workspace\c#\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.MainForm.resources
 D:\Workspace\c#\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.NoteForm.resources
@@ -40,3 +39,5 @@ D:\Workspace\c#\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.csproj.GenerateResource.Cac
 D:\Workspace\c#\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.csprojAssemblyReference.cache
 D:\Workspace\c#\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.csproj.CoreCompileInputs.cache
 D:\Workspace\c#\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.csproj.CopyComplete
+D:\Workspace\c#\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.FormDanhBa.resources
+D:\Workspace\c#\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.CashInfoForm.resources

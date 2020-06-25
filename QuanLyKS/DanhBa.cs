@@ -1,20 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace QuanLyKS
 {
-    public partial class DanhBa : Form
+    class DanhBa
     {
-        public DanhBa()
+        private string Ten, SDT;
+
+        public DanhBa(string ten, string sDT)
         {
-            InitializeComponent();
+            Ten1 = ten;
+            SDT1 = sDT;
         }
+
+        public string Ten1 { get => Ten; set => Ten = value; }
+        public string SDT1 { get => SDT; set => SDT = value; }
     }
 }

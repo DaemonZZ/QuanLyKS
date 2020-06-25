@@ -95,9 +95,12 @@ namespace QuanLyKS
                     while (reader.Read())
                     {
                         ThongTinDichVu info;
-                        info = new ThongTinDichVu(reader.GetString(0), reader.GetInt32(1), 0);
+                        info = new ThongTinDichVu(reader.GetString(0), 0, 0);
+                        if (!reader.IsDBNull(1)) info.Dg = reader.GetInt32(1);
                         if (!reader.IsDBNull(2)) info.Sl = reader.GetInt32(2);
+                        info.Sum = info.Sl * info.Dg;
                         serviceInfo.Add(info);
+                        //MessageBox.Show(info.Dg.ToString() + "-------" + info.Sl.ToString() + "----------+" + info.Sum.ToString());
                     }
                 }
 
@@ -166,7 +169,7 @@ namespace QuanLyKS
                 {
                     if (reader.Read())
                     {
-                        info = new currentCustomerInfo(reader.GetString(0), "", "", reader.GetString(3),"");
+                        info = new currentCustomerInfo(reader.GetString(0), "", "", reader.GetString(3), "");
                         if (!reader.IsDBNull(1)) info.CI1 = reader.GetDateTime(1).ToString();
                         if (!reader.IsDBNull(2)) info.CO1 = reader.GetDateTime(2).ToString();
                         if (!reader.IsDBNull(4)) info.Order = reader.GetDateTime(4).ToString();
@@ -300,7 +303,7 @@ namespace QuanLyKS
         public List<DoanhThu> getListDT(string date)
         {
             List<DoanhThu> listDT = new List<DoanhThu>();
-            DateTime sDate ;
+            DateTime sDate;
             string query = "select * from DoanhThu ";
             string filt = " where Ngay ='" + date + "'";
             string sort = " order by Ngay DESC";
@@ -310,7 +313,7 @@ namespace QuanLyKS
                 using (SqlConnection conn = new SqlConnection(ConnectionString.connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand(query+sort, conn);
+                    SqlCommand cmd = new SqlCommand(query + sort, conn);
                     using (SqlDataReader rd = cmd.ExecuteReader())
                     {
                         while (rd.Read())
@@ -334,7 +337,7 @@ namespace QuanLyKS
                     using (SqlConnection conn = new SqlConnection(ConnectionString.connectionString))
                     {
                         conn.Open();
-                        SqlCommand cmd = new SqlCommand(query+filt +sort, conn);
+                        SqlCommand cmd = new SqlCommand(query + filt + sort, conn);
                         using (SqlDataReader rd = cmd.ExecuteReader())
                         {
                             while (rd.Read())
@@ -356,9 +359,53 @@ namespace QuanLyKS
                     throw;
                 }
             }
-            return listDT; 
+            return listDT;
+        }
+        public List<DanhBa> getListDB()
+        {
+            List<DanhBa> listDB = new List<DanhBa>();
+            string query = "select * from DanhBa";
+            using (SqlConnection conn = new SqlConnection(ConnectionString.connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(query, conn);
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        DanhBa kh = new DanhBa(reader.GetString(0), reader.GetString(1));
+                        listDB.Add(kh);
+                    }
+                }
+
+                conn.Close();
+            }
+            return listDB;
+        }
+        public List<DanhBa> searchListDB(string s)
+        {
+            List<DanhBa> listDB = new List<DanhBa>();
+            string query = "select * from DanhBa where Ten like N'%"+s+"'";
+            
+            using (SqlConnection conn = new SqlConnection(ConnectionString.connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(query, conn);
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        DanhBa kh = new DanhBa(reader.GetString(0), reader.GetString(1));
+                        listDB.Add(kh);
+                    }
+                }
+
+                conn.Close();
+            }
+            return listDB;
         }
     }
 }
+
 
 

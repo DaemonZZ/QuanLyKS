@@ -637,8 +637,8 @@ namespace QuanLyKS
             {
                 string dg,dv;
                 int[] sZoom = { 103, 102, 201, 202, 203, 207 };
-                if (sZoom.Contains(currentZoom)) { dg = "400"; dv = "PB"; }
-                else { dg = "300"; dv = "PD"; }
+                if (sZoom.Contains(currentZoom)) { dg = "400000"; dv = "PB"; }
+                else { dg = "300000"; dv = "PD"; }
 
                 if (tbCI.Text != "") sCI = "'" + String.Format("{0:dd/MM/yyyy HH:mm}", ci) + "'";
                 else sCI = "null";

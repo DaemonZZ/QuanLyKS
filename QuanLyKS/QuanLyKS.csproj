@@ -59,8 +59,15 @@
     <Compile Include="AddDialog.Designer.cs">
       <DependentUpon>AddDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="CashInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CashInfoForm.Designer.cs">
+      <DependentUpon>CashInfoForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConnectionString.cs" />
     <Compile Include="currentCustomerInfo.cs" />
+    <Compile Include="DanhBa.cs" />
     <Compile Include="DatabaseConnection.cs" />
     <Compile Include="DoanhThu.cs" />
     <Compile Include="EditDialog.cs">
@@ -75,11 +82,11 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="DanhBa.cs">
+    <Compile Include="FormDanhBa.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DanhBa.Designer.cs">
-      <DependentUpon>DanhBa.cs</DependentUpon>
+    <Compile Include="FormDanhBa.Designer.cs">
+      <DependentUpon>FormDanhBa.cs</DependentUpon>
     </Compile>
     <Compile Include="Hoanthientt.cs">
       <SubType>Form</SubType>
@@ -120,14 +127,17 @@
     <EmbeddedResource Include="AddDialog.resx">
       <DependentUpon>AddDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CashInfoForm.resx">
+      <DependentUpon>CashInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EditDialog.resx">
       <DependentUpon>EditDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DanhBa.resx">
-      <DependentUpon>DanhBa.cs</DependentUpon>
+    <EmbeddedResource Include="FormDanhBa.resx">
+      <DependentUpon>FormDanhBa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Hoanthientt.resx">
       <DependentUpon>Hoanthientt.cs</DependentUpon>

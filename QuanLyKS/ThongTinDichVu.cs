@@ -48,13 +48,14 @@ namespace QuanLyKS
             this.dv = dv;
             this.dg = dg;
             this.sl = sl;
-            this.sum = dg * sl;
+            Sum = dg * sl;
         }
         public ThongTinDichVu(string id, string dv,int dg)
         {
             this.dv = dv;
             this.id = id;
             this.dg = dg;
+
         }
        
     }

@@ -23,6 +23,8 @@ namespace QuanLyKS
         private int hoverZoom = 0;
         private string note;
         private KhachHang info;
+        int sum;
+        public string NV;
         public static MainForm m;
 
         public string Note
@@ -63,6 +65,7 @@ namespace QuanLyKS
             B.Add(button206);
             B.Add(button207);
             Update();
+            NV = radioButton1.Text;
         }
         //
         // Hàm Update gọi cùng MainForm để cập nhập dữ liệu hiện tại từ Excel
@@ -197,6 +200,7 @@ namespace QuanLyKS
         {
             string idBill = "";
             int tong = 0;
+            int sttdoan = 0;
             currentCustomerInfo info = new DatabaseConnection().getCurrentInfo(s);
             tbName.Text = info.TenKH;
             tbPhong.Text = info.Phong;
@@ -218,6 +222,7 @@ namespace QuanLyKS
                 if (item.getIdPhong() == selectedZoom)
                 {
                     idBill = item.getIdBill();
+                    sttdoan = item.getStatus();
                 }
             }
 
@@ -239,12 +244,39 @@ namespace QuanLyKS
 
             foreach (ThongTinDichVu item in listDV)
             {
+                //MessageBox.Show(item.Sum.ToString());
                 tong += item.Sum;
             }
 
             tbTotal.Text = String.Format("{0:n0}", tong);
+            sum = tong;
+
+            //Lấy thông tin Đoàn
+            if (sttdoan > 5)
+            {
+
+                int tongDoan = 0;
+                string idBillDoan = "";
+                foreach (Zoom item in ListZoom)
+                {
+
+                    if (item.getStatus() == sttdoan)
+                    {
+                        idBillDoan = item.getIdBill();
+                        List<ThongTinDichVu> listDVDoan = new DatabaseConnection().getDV(idBillDoan, DatabaseConnection.EDIT);
+                        tong = 0;
+                        foreach (ThongTinDichVu i in listDVDoan)
+                        {
+                            tong += i.Sum;
+                        }
+                        tongDoan += tong;
+                    }
+                }
+                tfXtotal.Text = String.Format("{0:n0}", tongDoan);
+            }
 
 
+            #region Excel 
             //var package = new ExcelPackage(new FileInfo("CurrentCustomer.xlsx"));
             //ExcelWorksheet a = package.Workbook.Worksheets[0];
 
@@ -293,7 +325,7 @@ namespace QuanLyKS
             //        tbTotal.Text = String.Format("{0:n0}", tong);
             //    }
             //}
-
+            #endregion
         }
         //
         //Reset thong tin phong
@@ -383,7 +415,7 @@ namespace QuanLyKS
                 }
                 if (phong.getIdBill() != "")
                 {
-                    EditDialog ed = new EditDialog(selectedZoom, dataGridView1.SelectedRows[0].Index);
+                    EditDialog ed = new EditDialog(selectedZoom, phong.getIdBill(),dataGridView1.CurrentRow.Cells[0].Value.ToString());
                     ed.ShowDialog();
                     getThongTinPhong(selectedZoom);
                 }
@@ -560,16 +592,16 @@ namespace QuanLyKS
         private void button19_Click(object sender, EventArgs e)//Chưa sửa
         {
             bool dv = true, tt = true;
-            
+
             if (selectedZoom != 0)
             {
                 if (tbCI.Text == "") tt = false;
-                List<ThongTinDichVu> ListDV = new DatabaseConnection().getDV(conn.getIDBill(selectedZoom),DatabaseConnection.EDIT);
+                List<ThongTinDichVu> ListDV = new DatabaseConnection().getDV(conn.getIDBill(selectedZoom), DatabaseConnection.EDIT);
                 foreach (ThongTinDichVu item in ListDV)
                 {
-                    if (item.Dg * item.Sl == 0) tt = false;
+                    if (item.Dg * item.Sl == 0) dv = false;
                 }
-                if(!tt)
+                if (!tt)
                 {
                     MessageBox.Show("Điền đầy đủ thông tin khách hàng trước khi thanh toán");
                     updateForm uF = new updateForm(selectedZoom, updateForm.EDIT);
@@ -579,12 +611,42 @@ namespace QuanLyKS
                 if (!dv)
                 {
                     MessageBox.Show("Hoàn thanh thông tin dịch vụ trước");
-                   
+
                 }
                 if (tt && dv)
                 {
-                    if (tbCO.Text == "") tbCO.Text = (DateTime.Now).ToString();
+                    string idBill="";
+                    bool b = true;
+                    //DateTime CI = Convert.ToDateTime(tbCI.Text);
+                    //string sCI = String.Format("{0:dd/MM/yyyy HH:mm}", CI);
+                    if (tbCO.Text == "") tbCO.Text = String.Format("{0:dd/MM/yyyy HH:mm}", DateTime.Now);
+                    DateTime CO = Convert.ToDateTime(tbCO.Text);
+                    string sCO = String.Format("{0:MM/dd/yyyy HH:mm}", CO);
+                    string query1 = "update Bill set CO='" + sCO + "' where idphong=" + selectedZoom;
+                    string query2 = "select IdBill from Phong where IdPhong = " + selectedZoom;
                     
+                    using(SqlConnection conn = new SqlConnection(ConnectionString.connectionString))
+                    {
+                        conn.Open();
+                        SqlCommand cmd = new SqlCommand(query1, conn);
+                        b = cmd.ExecuteNonQuery() > 0;
+                        cmd = new SqlCommand(query2, conn);
+                        using(SqlDataReader rd = cmd.ExecuteReader())
+                        {
+                            if (rd.Read()) { idBill = rd.GetString(0); }
+                        }
+                        conn.Close();
+                    }
+                    if(b)
+                    {
+                        DoanhThu dt = new DoanhThu(DateTime.Now, idBill, radioButton1.Text, "", sum,0,"");
+                        CashInfoForm cash = new CashInfoForm(dt);
+                        cash.ShowDialog();
+                        getThongTinPhong(selectedZoom);
+                        Update();
+
+
+                    }
                 }
 
             }
@@ -644,7 +706,7 @@ namespace QuanLyKS
             //}
             #endregion
         }
-        public void LuuTru()//Chưa sửa
+       public void LuuTru()//Chưa sửa
         {
             //var save = new ExcelPackage(new FileInfo("CustomerLog.xlsx"));
             //ExcelWorksheet b = save.Workbook.Worksheets[0];
@@ -667,7 +729,7 @@ namespace QuanLyKS
 
         private void button2_Click(object sender, EventArgs e)
         {
-            DanhBa db = new DanhBa();
+            FormDanhBa db = new FormDanhBa();
             db.ShowDialog();
         }
 
