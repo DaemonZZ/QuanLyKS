@@ -41,3 +41,5 @@ D:\Workspace\c#\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.csproj.CoreCompileInputs.ca
 D:\Workspace\c#\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.csproj.CopyComplete
 D:\Workspace\c#\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.FormDanhBa.resources
 D:\Workspace\c#\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.CashInfoForm.resources
+D:\Workspace\c#\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.AddDanhBaForm.resources
+D:\Workspace\c#\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.editDanhBaForm.resources

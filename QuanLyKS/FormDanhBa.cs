@@ -12,7 +12,7 @@ namespace QuanLyKS
 {
     public partial class FormDanhBa : Form
     {
-        List<DanhBa> db = new DatabaseConnection().getListDB();
+        List<DanhBa> db;
         public FormDanhBa()
         {
             InitializeComponent();
@@ -20,6 +20,7 @@ namespace QuanLyKS
         }
         public void loadGrid()
         {
+            db = new DatabaseConnection().getListDB();
             dataGridView1.DataSource = db;
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.Columns[0].DataPropertyName = "Ten1";
@@ -38,6 +39,20 @@ namespace QuanLyKS
             List<DanhBa> db = new DatabaseConnection().searchListDB(textBox1.Text);
             dataGridView1.DataSource = db;
 
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            AddDanhBaForm add = new AddDanhBaForm();
+            add.ShowDialog();
+            loadGrid();
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            editDanhBaForm edit = new editDanhBaForm(dataGridView1.CurrentRow.Cells[0].Value.ToString(),dataGridView1.CurrentRow.Cells[1].Value.ToString());
+            edit.ShowDialog();
+            loadGrid();
         }
     }
 }

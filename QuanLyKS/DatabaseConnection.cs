@@ -385,7 +385,7 @@ namespace QuanLyKS
         public List<DanhBa> searchListDB(string s)
         {
             List<DanhBa> listDB = new List<DanhBa>();
-            string query = "select * from DanhBa where Ten like N'%"+s+"'";
+            string query = "select * from DanhBa where Ten like N'%"+s+"%'";
             
             using (SqlConnection conn = new SqlConnection(ConnectionString.connectionString))
             {
@@ -403,6 +403,28 @@ namespace QuanLyKS
                 conn.Close();
             }
             return listDB;
+        }
+        public void addDanhBa(String ten,String sdt)
+        {
+            string query ="insert into DanhBa(ten,sdt) values(N'"+ten+"','"+sdt+"')";
+            using(SqlConnection conn = new SqlConnection(ConnectionString.connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+        }
+        public void editDanhBa(String ten,string sdt)
+        {
+            string query = "update DanhBa set sdt ='" + sdt + "' where Ten=N'" + ten + "'";
+            using (SqlConnection conn = new SqlConnection(ConnectionString.connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
         }
     }
 }

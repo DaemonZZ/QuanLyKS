@@ -53,6 +53,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="editDanhBaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="editDanhBaForm.Designer.cs">
+      <DependentUpon>editDanhBaForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddDanhBaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddDanhBaForm.Designer.cs">
+      <DependentUpon>AddDanhBaForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="AddDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -124,6 +136,12 @@
       <DependentUpon>updateForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Zoom.cs" />
+    <EmbeddedResource Include="editDanhBaForm.resx">
+      <DependentUpon>editDanhBaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddDanhBaForm.resx">
+      <DependentUpon>AddDanhBaForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AddDialog.resx">
       <DependentUpon>AddDialog.cs</DependentUpon>
     </EmbeddedResource>
