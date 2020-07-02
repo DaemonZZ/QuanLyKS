@@ -62,8 +62,8 @@ namespace QuanLyKS
             //File.WriteAllBytes("CurrentCustomer.xlsx", bin);
             #endregion
             string text = "null";
-            if (textBox1.Text != "") text = textBox1.Text;
-            string query = "update phong set Note = N'" + text+"'";
+            if (textBox1.Text != "") text = "N'"+textBox1.Text+"'";
+            string query = "update phong set Note = " + text+" where IdPhong="+currentZoom;
             using(SqlConnection conn = new SqlConnection(ConnectionString.connectionString))
             {
                 conn.Open();

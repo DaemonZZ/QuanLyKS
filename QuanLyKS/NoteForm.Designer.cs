@@ -70,7 +70,7 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.btnOK);
             this.Name = "NoteForm";
-            this.Text = "NoteForm";
+            this.Text = "Thêm ghi chú";
             this.ResumeLayout(false);
             this.PerformLayout();
 
