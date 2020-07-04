@@ -53,6 +53,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="add_editNVForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="add_editNVForm.Designer.cs">
+      <DependentUpon>add_editNVForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DoanhThuForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DoanhThuForm.Designer.cs">
+      <DependentUpon>DoanhThuForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="editDanhBaForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,6 +134,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QLNVForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="QLNVForm.Designer.cs">
+      <DependentUpon>QLNVForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ReportForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -136,6 +154,12 @@
       <DependentUpon>updateForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Zoom.cs" />
+    <EmbeddedResource Include="add_editNVForm.resx">
+      <DependentUpon>add_editNVForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DoanhThuForm.resx">
+      <DependentUpon>DoanhThuForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="editDanhBaForm.resx">
       <DependentUpon>editDanhBaForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -175,6 +199,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="QLNVForm.resx">
+      <DependentUpon>QLNVForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReportForm.resx">
       <DependentUpon>ReportForm.cs</DependentUpon>
     </EmbeddedResource>

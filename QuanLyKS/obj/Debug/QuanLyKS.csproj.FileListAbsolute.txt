@@ -43,3 +43,6 @@ D:\Workspace\c#\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.FormDanhBa.resources
 D:\Workspace\c#\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.CashInfoForm.resources
 D:\Workspace\c#\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.AddDanhBaForm.resources
 D:\Workspace\c#\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.editDanhBaForm.resources
+D:\Workspace\c#\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.QLNVForm.resources
+D:\Workspace\c#\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.DoanhThuForm.resources
+D:\Workspace\c#\QuanLyKS\QuanLyKS\obj\Debug\QuanLyKS.add_editNVForm.resources

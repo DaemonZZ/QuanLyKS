@@ -12,54 +12,59 @@ namespace QuanLyKS
         private string ViTri;
         private string MaNV;
         private string MatKhau;
+
+        public string Ten { get => ten; set => ten = value; }
+        public string ViTri1 { get => ViTri; set => ViTri = value; }
+        public string MaNV1 { get => MaNV; set => MaNV = value; }
+        public string MatKhau1 { get => MatKhau; set => MatKhau = value; }
         #region Phương Thức getter setter
         public void setTen(string ten)
         {
-            this.ten = ten;
+            this.Ten = ten;
         }
         public string getTen()
         {
-            return ten;
+            return Ten;
         }
         public void setViTri(string ViTri)
         {
-            this.ViTri = ViTri;
+            this.ViTri1 = ViTri;
         }
         public string getViTri()
         {
-            return ViTri;
+            return ViTri1;
         }
         public void setMaNV(string MaNV)
         {
-            this.MaNV = MaNV;
+            this.MaNV1 = MaNV;
         }
         public string getMaNV()
         {
-            return MaNV;
+            return MaNV1;
         }
         public void setMatKhau(string MatKhau)
         {
-            this.MatKhau = MatKhau;
+            this.MatKhau1 = MatKhau;
         }
         public string getMatKhau()
         {
-            return MatKhau;
+            return MatKhau1;
         }
         #endregion
 
         public NhanVien()
         {
-            this.ten = "";
-            this.ViTri = "";
-            this.MaNV = "";
-            this.MatKhau = "";
+            this.Ten = "";
+            this.ViTri1 = "";
+            this.MaNV1 = "";
+            this.MatKhau1 = "";
         }
         public NhanVien(string ten,string ViTri,string MaNV,string MatKhau)
         {
-            this.ten = ten;
-            this.ViTri = ViTri;
-            this.MaNV = MaNV;
-            this.MatKhau = MatKhau;
+            this.Ten = ten;
+            this.ViTri1 = ViTri;
+            this.MaNV1 = MaNV;
+            this.MatKhau1 = MatKhau;
         }
     }
 }

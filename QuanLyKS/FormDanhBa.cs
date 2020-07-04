@@ -21,6 +21,7 @@ namespace QuanLyKS
         public void loadGrid()
         {
             db = new DatabaseConnection().getListDB();
+           
             dataGridView1.DataSource = db;
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.Columns[0].DataPropertyName = "Ten1";

@@ -30,19 +30,14 @@ namespace QuanLyKS
                 //SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    if (reader.HasRows)
+
+                    while (reader.Read())
                     {
-                        while (reader.Read())
-                        {
-                            NhanVien a = new NhanVien(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetString(3));
-                            listNV.Add(a);
-                            //Console.WriteLine(a.getTen());
-                        }
+                        NhanVien a = new NhanVien(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetString(3));
+                        listNV.Add(a);
+                        //Console.WriteLine(a.getTen());
                     }
-                    else
-                    {
-                        MessageBox.Show("Chưa có dữ liệu nhân viên");
-                    }
+
                 }
                 conn.Close();
             }
@@ -385,8 +380,8 @@ namespace QuanLyKS
         public List<DanhBa> searchListDB(string s)
         {
             List<DanhBa> listDB = new List<DanhBa>();
-            string query = "select * from DanhBa where Ten like N'%"+s+"%'";
-            
+            string query = "select * from DanhBa where Ten like N'%" + s + "%'";
+
             using (SqlConnection conn = new SqlConnection(ConnectionString.connectionString))
             {
                 conn.Open();
@@ -404,10 +399,10 @@ namespace QuanLyKS
             }
             return listDB;
         }
-        public void addDanhBa(String ten,String sdt)
+        public void addDanhBa(String ten, String sdt)
         {
-            string query ="insert into DanhBa(ten,sdt) values(N'"+ten+"','"+sdt+"')";
-            using(SqlConnection conn = new SqlConnection(ConnectionString.connectionString))
+            string query = "insert into DanhBa(ten,sdt) values(N'" + ten + "','" + sdt + "')";
+            using (SqlConnection conn = new SqlConnection(ConnectionString.connectionString))
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(query, conn);
@@ -415,7 +410,7 @@ namespace QuanLyKS
                 conn.Close();
             }
         }
-        public void editDanhBa(String ten,string sdt)
+        public void editDanhBa(String ten, string sdt)
         {
             string query = "update DanhBa set sdt ='" + sdt + "' where Ten=N'" + ten + "'";
             using (SqlConnection conn = new SqlConnection(ConnectionString.connectionString))
@@ -425,6 +420,49 @@ namespace QuanLyKS
                 cmd.ExecuteNonQuery();
                 conn.Close();
             }
+        }
+        public void editNV(NhanVien a,string type)
+        {
+            bool b=false;
+            string queryAdd = " insert into NhanVien(hoten,vitri,manv,matkhau) " +
+                "values (N'" + a.Ten + "',N'" + a.ViTri1 + "',N'" + a.MaNV1 + "','" + a.MatKhau1 + "')";
+            string queryEdit = "update NhanVien set hoten=N'"+a.Ten+"',vitri=N'"+a.ViTri1 + "',matkhau='" + a.MatKhau1 + "' " +
+                "where manv= N'" + a.MaNV1 + "'";
+            using(SqlConnection conn = new SqlConnection(ConnectionString.connectionString))
+            {
+                conn.Open();
+                SqlCommand cmdAdd = new SqlCommand(queryAdd, conn);
+                SqlCommand cmdEdit = new SqlCommand(queryEdit, conn);
+                if (type == ADD)
+                {
+                    b=cmdAdd.ExecuteNonQuery()>0;
+                    if (b) MessageBox.Show("Thêm thành công!");
+                    else MessageBox.Show("Thêm thất bại");
+                }
+                else
+                {
+                    b=cmdEdit.ExecuteNonQuery()>0;
+                    if (b) MessageBox.Show("Sửa thành công!");
+                    else MessageBox.Show("Sửa thất bại!");
+                }
+                conn.Close();
+            }
+            
+        }
+        public void delNV(NhanVien a)
+        {
+            bool b = false;
+            string query = "delete from NhanVien where manv = N'" + a.MaNV1 + "'";
+            using(SqlConnection conn = new SqlConnection(ConnectionString.connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(query, conn);
+                b=cmd.ExecuteNonQuery()>0;
+                conn.Close();
+            }
+            if (b) MessageBox.Show("Xóa thành công!");
+            else MessageBox.Show("Xóa thất bại!");
+           
         }
     }
 }

@@ -746,5 +746,22 @@ namespace QuanLyKS
             this.Dispose();
         }
 
+        private void quảnLýNhânViênToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            QLNVForm qLNV = new QLNVForm(QLNVForm.ADMIN);
+            qLNV.ShowDialog();
+        }
+
+        private void thốngKêDoanhThuToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoanhThuForm dt = new DoanhThuForm();
+            dt.ShowDialog();
+        }
+
+        private void danhSáchNhânViênToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            QLNVForm ql = new QLNVForm(QLNVForm.VIEW);
+            ql.ShowDialog();
+        }
     }
 }
