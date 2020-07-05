@@ -15,6 +15,7 @@ namespace QuanLyKS
         private int thu;
         private int chi;
         private string note;
+        private string MaBC;
 
         public DateTime Ngay { get => ngay; set => ngay = value; }
         public string IdBill { get => idBill; set => idBill = value; }
@@ -23,6 +24,7 @@ namespace QuanLyKS
         public int Thu { get => thu; set => thu = value; }
         public int Chi { get => chi; set => chi = value; }
         public string Note { get => note; set => note = value; }
+        public string MaBC1 { get => MaBC; set => MaBC = value; }
 
         public DoanhThu()
         {
@@ -46,14 +48,18 @@ namespace QuanLyKS
             this.Note = note;
         }
 
-        public DoanhThu(DateTime ngay, string maNV, string danhMuc, int thu, int chi, string note)
+        public DoanhThu(DateTime ngay,  string danhMuc, int thu, int chi, string note)
         {
             this.Ngay = ngay;
-            this.MaNV = maNV;
             this.DanhMuc = danhMuc;
             this.Thu = thu;
             this.Chi = chi;
             this.Note = note;
+        }
+
+        public DoanhThu(DateTime ngay, string idBill, string maNV, string danhMuc, int thu, int chi, string note, string maBC) : this(ngay, idBill, maNV, danhMuc, thu, chi, note)
+        {
+            MaBC = maBC;
         }
     }
 }

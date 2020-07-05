@@ -639,7 +639,7 @@ namespace QuanLyKS
                     }
                     if(b)
                     {
-                        DoanhThu dt = new DoanhThu(DateTime.Now, idBill, radioButton1.Text, "", sum,0,"");
+                        DoanhThu dt = new DoanhThu(DateTime.Now, idBill, radioButton1.Text, "", sum,0,"",new DatabaseConnection().getCurrentReport());
                         CashInfoForm cash = new CashInfoForm(dt);
                         cash.ShowDialog();
                         getThongTinPhong(selectedZoom);

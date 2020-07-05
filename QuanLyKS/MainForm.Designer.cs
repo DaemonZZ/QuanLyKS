@@ -54,7 +54,7 @@ namespace QuanLyKS
             this.báoCáoNgàyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lịchLàmViệcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quảnLýToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.hàngNhậpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnBaocao = new System.Windows.Forms.ToolStripMenuItem();
             this.thốngKêDoanhThuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quảnLýNhânViênToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bảoDưỡngPhòngToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -215,7 +215,7 @@ namespace QuanLyKS
             // quảnLýToolStripMenuItem
             // 
             this.quảnLýToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.hàngNhậpToolStripMenuItem,
+            this.mnBaocao,
             this.thốngKêDoanhThuToolStripMenuItem,
             this.quảnLýNhânViênToolStripMenuItem,
             this.bảoDưỡngPhòngToolStripMenuItem});
@@ -223,11 +223,11 @@ namespace QuanLyKS
             this.quảnLýToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
             this.quảnLýToolStripMenuItem.Text = "Quản lý";
             // 
-            // hàngNhậpToolStripMenuItem
+            // mnBaocao
             // 
-            this.hàngNhậpToolStripMenuItem.Name = "hàngNhậpToolStripMenuItem";
-            this.hàngNhậpToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
-            this.hàngNhậpToolStripMenuItem.Text = "Xuất nhập hàng hoá";
+            this.mnBaocao.Name = "mnBaocao";
+            this.mnBaocao.Size = new System.Drawing.Size(181, 22);
+            this.mnBaocao.Text = "Báo cáo nhân viên";
             // 
             // thốngKêDoanhThuToolStripMenuItem
             // 
@@ -966,7 +966,7 @@ namespace QuanLyKS
         private ToolStripMenuItem danhSáchKháchQuenToolStripMenuItem;
         private ToolStripMenuItem báoCáoNgàyToolStripMenuItem;
         private ToolStripMenuItem quảnLýToolStripMenuItem;
-        private ToolStripMenuItem hàngNhậpToolStripMenuItem;
+        private ToolStripMenuItem mnBaocao;
         private ToolStripMenuItem lịchLàmViệcToolStripMenuItem;
         private ToolStripMenuItem thốngKêDoanhThuToolStripMenuItem;
         private ToolStripMenuItem quảnLýNhânViênToolStripMenuItem;

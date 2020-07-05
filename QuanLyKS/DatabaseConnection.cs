@@ -464,6 +464,81 @@ namespace QuanLyKS
             else MessageBox.Show("Xóa thất bại!");
            
         }
+        public string createNextReport()
+        {
+            string nextRp = "";
+            int count = 1;
+            string query = "select  MaBC from BaoCao";
+            using (SqlConnection conn = new SqlConnection(ConnectionString.connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(query, conn);
+                using (SqlDataReader rd = cmd.ExecuteReader())
+                {
+                    while (rd.Read()) count++;
+                }
+                conn.Close();
+            }
+            nextRp = "Rp" + count;
+            string query2 = "insert into BaoCao(MaBC) values ('" + nextRp + "')";
+            using (SqlConnection conn = new SqlConnection(ConnectionString.connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(query2, conn);
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            return nextRp;
+        }
+        public string getCurrentReport()
+        {
+            string id="";
+            string query = "select mabc from baocao where dagui = 'false'";
+            using (SqlConnection conn = new SqlConnection(ConnectionString.connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(query, conn);
+                using (SqlDataReader rd = cmd.ExecuteReader())
+                {
+                    if (rd.Read()) id = rd.GetString(0);
+                }
+                conn.Close();
+
+            }
+            if (id == "")
+            {
+                id = createNextReport();
+            }
+            return id;
+        }
+        public List<DoanhThu> getListRP()
+        {
+            string query = "select Ngay,DanhMuc,Thu,Chi,Note from DoanhThu where MaBC='" + getCurrentReport() + "'";
+            List<DoanhThu> list = new List<DoanhThu>();
+            using (SqlConnection conn = new SqlConnection(ConnectionString.connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(query, conn);
+                //SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            DoanhThu dt = new DoanhThu(reader.GetDateTime(0), reader.GetString(1), 0, 0, "");
+                            if (!reader.IsDBNull(2)) dt.Thu = reader.GetInt32(2);
+                            if (!reader.IsDBNull(3)) dt.Chi = reader.GetInt32(3);
+                            if (!reader.IsDBNull(4)) dt.Note = reader.GetString(4);
+                            list.Add(dt);
+
+                        }
+                    }
+                }
+                conn.Close();
+            }
+            return list;
+        }
     }
 }
 
