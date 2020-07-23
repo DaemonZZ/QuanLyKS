@@ -94,7 +94,6 @@ namespace QuanLyKS
                 }
                 string query = "update BillInfo set DonGia =" + tbDonGia.Text + ", SoLuong = " + tbSoLuong.Text + " where IdDV='" + iddv + "'";
                 SqlCommand cmd = new SqlCommand(query, conn);
-                MessageBox.Show(query);
                 b=(cmd.ExecuteNonQuery()>0);
                 conn.Close();
             }

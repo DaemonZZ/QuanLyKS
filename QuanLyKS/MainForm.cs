@@ -74,6 +74,12 @@ namespace QuanLyKS
         {
             radioButton1.Text = Form1.username;
             ListZoom = new DatabaseConnection().getListZoom();
+            if (Form1.acessRight == 0 || Form1.acessRight == 2) quảnLýToolStripMenuItem.Enabled = false;
+            if (Form1.acessRight == 2)
+            {
+                panel1.Enabled = false;
+                button21.Enabled = false;
+            }
 
             #region Sử dụng Excel - -
             //var package = new ExcelPackage(new FileInfo("CurrentCustomer.xlsx"));
@@ -734,6 +740,7 @@ namespace QuanLyKS
         }
 
         private void gửiBáoCáoToolStripMenuItem_Click(object sender, EventArgs e)
+
         {
             ReportForm rp = new ReportForm();
             rp.ShowDialog();

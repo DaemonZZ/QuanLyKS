@@ -16,7 +16,7 @@ namespace QuanLyKS
         private string query = @"select * from NhanVien ";
         private string password;
         public static string username;
-
+        public static int acessRight ;
         //
         // Phương thức get set
         //
@@ -99,6 +99,7 @@ namespace QuanLyKS
             username = comboBox2.Text;
             if (tbPass.Text == password)
             {
+                acessRight = comboBox1.SelectedIndex;
                 MainForm mf = new MainForm();
                 mf.Show();
                 this.Hide();
